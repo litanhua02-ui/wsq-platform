@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>翠綠小農園 | 自家栽培無毒鮮摘蔬菜</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-light: #52b788;
+      --accent: #d8f3dc;
+      --bg: #f8fbf8;
+      --card-bg: #ffffff;
+      --text-main: #1b4332;
+      --text-muted: #5c6f64;
+      --danger: #d90429;
+      --shadow: 0 10px 25px rgba(45, 106, 79, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1b4332, #2d6a4f);
+      color: white;
+      padding: 48px 24px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .status-bar {
+      background-color: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      color: #2e7d32;
+    }
+
+    .status-bar.warning {
+      background-color: #fff3e0;
+      border-color: #ffe0b2;
+      color: #e65100;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      border: 1px solid rgba(82, 183, 136, 0.15);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 30px rgba(45, 106, 79, 0.15);
+    }
+
+    .img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 210px;
+      background-color: #e9ecef;
+      overflow: hidden;
+    }
+
+    .img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .stock-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background-color: rgba(45, 106, 79, 0.9);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .stock-badge.low {
+      background-color: rgba(217, 4, 41, 0.9);
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+      margin-bottom: 16px;
+    }
+
+    .price-tag {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .price-tag small {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+
+    .stock-info {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .btn-buy {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-buy:hover {
+      background-color: var(--primary-light);
+    }
+
+    .btn-buy:disabled {
+      background-color: #ced4da;
+      cursor: not-allowed;
+    }
+
+    /* --- 懸浮購物車按鈕 --- */
+    .cart-btn-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      z-index: 99;
+      font-size: 1.5rem;
+      transition: transform 0.2s;
+    }
+
+    .cart-btn-float:hover {
+      transform: scale(1.08);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background-color: var(--danger);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* --- 購物車側邊抽屜面版 --- */
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 1000;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 100%;
+      max-width: 420px;
+      height: 100%;
+      background: #ffffff;
+      z-index: 1001;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s ease;
+    }
+
+    .cart-overlay.active { display: block; }
+    .cart-drawer.active { right: 0; }
+
+    .cart-header {
+      padding: 20px;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h2 { font-size: 1.2rem; }
+    .close-cart {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .cart-body {
+      padding: 20px;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .cart-item-info h4 { font-size: 0.95rem; }
+    .cart-item-info p { font-size: 0.85rem; color: var(--text-muted); }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cart-item-controls button {
+      width: 24px;
+      height: 24px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .btn-delete {
+      color: var(--danger);
+      background: none;
+      border: none;
+      margin-left: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    /* 顧客基本資料表單 */
+    .checkout-form {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px dashed #e2e8f0;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .cart-footer {
+      padding: 20px;
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .btn-submit-order {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-submit-order:disabled {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌱 翠綠家園無毒良菜</h1>
+    <p>自家農地友善農耕・每日清晨現採新鮮直送</p>
+  </header>
+
+  <div class="container">
+    <div id="statusNotice" class="status-bar">
+      <span>正在從 Google 試算表連線抓取即時庫存與價格...</span>
+    </div>
+
+    <div id="productGrid" class="product-grid">
+      <!-- 商品將由 JavaScript 動態填入 -->
+    </div>
+  </div>
+
+  <!-- 浮動購物車按鈕 -->
+  <div class="cart-btn-float" onclick="toggleCart(true)">
+    🛒
+    <div id="cartBadge" class="cart-badge">0</div>
+  </div>
+
+  <!-- 購物車遮罩與側邊欄 -->
+  <div id="cartOverlay" class="cart-overlay" onclick="toggleCart(false)"></div>
+  <div id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+      <h2>🛒 我的購物車</h2>
+      <button class="close-cart" onclick="toggleCart(false)">&times;</button>
+    </div>
+
+    <div class="cart-body">
+      <!-- 購物車清單 -->
+      <div id="cartItems"></div>
+
+      <!-- 顧客資料表單 -->
+      <form id="orderForm" class="checkout-form">
+        <h3 style="font-size:1rem; margin-bottom:12px;">📋 訂購人基本資料</h3>
+        <div class="form-group">
+          <label for="custName">訂購者姓名 *</label>
+          <input type="text" id="custName" required placeholder="請輸入姓名">
+        </div>
+        <div class="form-group">
+          <label for="custPhone">聯絡電話 *</label>
+          <input type="tel" id="custPhone" required placeholder="例: 0912345678">
+        </div>
+        <div class="form-group">
+          <label for="custEmail">電子郵件 *</label>
+          <input type="email" id="custEmail" required placeholder="例: name@example.com">
+        </div>
+      </form>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>總計：</span>
+        <span id="cartTotalAmount">NT$ 0</span>
+      </div>
+      <button id="btnSubmit" class="btn-submit-order" onclick="submitOrder()">送出訂單</button>
+    </div>
+  </div>
+
+  <script>
+  // 1. Google 試算表與 n8n Webhook 設定
+ const SHEET_ID = '1NbbdRuVT0MxM8Z9GkJibGfYD8e4Q5gckEy3R74Tq5OY';
+  const GID = '1315750235';
+  const gvizUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}`;
+
+  // ⚠️ 請填入您的 n8n Webhook URL (例如: http://localhost:5678/webhook/your-webhook-id)
+  const N8N_WEBHOOK_URL = 'http://localhost:5678/webhook-test/0964f648-e700-4a28-abf8-a39436d525a7';
+
+  let productsData = [];
+  let cart = [];
+
+  const presetAssets = [
+    { keyword: "高麗菜", image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80", desc: "自製有機堆肥栽種，葉質脆嫩多汁，清甜回甘。" },
+    { keyword: "番茄", image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80", desc: "晨光完熟現摘，皮薄多汁，酸甜濃郁富含茄紅素。" },
+    { keyword: "胡蘿蔔", image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=600&q=80", desc: "土壤鬆軟生長均勻，口感清甜無土味，燉湯首選。" },
+    { keyword: "小白菜", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80", desc: "網室防蟲栽種無農藥，葉片翠綠厚實，炒菜清脆美味。" },
+    { keyword: "青花菜", image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=600&q=80", desc: "花球緊密結實，營養豐富，汆燙即食。" },
+    { keyword: "黃瓜", image: "https://images.unsplash.com/photo-1449339854873-750e6913301b?auto=format&fit=crop&w=600&q=80", desc: "藤架自然垂掛生長，口感爽脆清香，涼拌首選。" }
+  ];
+
+  function enrichProduct(name, stock, price, index) {
+    const matched = presetAssets.find(a => name.includes(a.keyword)) || presetAssets[index % presetAssets.length];
+    return {
+      id: index,
+      name: name,
+      stock: Number(stock) || 0,
+      price: Number(price) || 0,
+      desc: matched.desc,
+      img: matched.image
+    };
+  }
+
+  function renderProducts(items) {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = items.map(item => {
+      const isLow = item.stock <= 3;
+      const isOut = item.stock <= 0;
+      return `
+        <div class="product-card">
+          <div class="img-wrapper">
+            <img src="item.img"alt="{item.name}">
+            <div class="stock-badge ${isLow ? 'low' : ''}">
+              ${isOut ? '已售完' : `庫存剩餘 ${item.stock} 份`}
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="product-title">${item.name}</h3>
+            <p class="product-desc">${item.desc}</p>
+            <div class="price-row">
+              <div class="price-tag">NT$ ${item.price}<small>/份</small></div>
+              <div class="stock-info">${isOut ? '補貨中' : '當日鮮採'}</div>
+            </div>
+            <button class="btn-buy" isOut?'disabled':''onclick="addToCart({item.id})">
+              ${isOut ? '暫無庫存' : '加入購物袋'}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // --- 購物車核心邏輯 ---
+  function addToCart(productId) {
+    const product = productsData.find(p => p.id === productId);
+    if (!product) return;
+
+    const existingItem = cart.find(item => item.id === productId);
+    if (existingItem) {
+      if (existingItem.qty < product.stock) {
+        existingItem.qty += 1;
+      } else {
+        alert('受限於目前庫存數量，無法加入更多！');
+        return;
+      }
+    } else {
+      cart.push({ id: product.id, name: product.name, price: product.price, qty: 1, maxStock: product.stock });
+    }
+    updateCartUI();
+    toggleCart(true);
+  }
+
+  function changeQty(productId, delta) {
+    const item = cart.find(i => i.id === productId);
+    if (!item) return;
+
+    item.qty += delta;
+    if (item.qty <= 0) {
+      cart = cart.filter(i => i.id !== productId);
+    } else if (item.qty > item.maxStock) {
+      item.qty = item.maxStock;
+      alert('已達最大庫存限額');
+    }
+    updateCartUI();
+  }
+
+  function removeItem(productId) {
+    cart = cart.filter(i => i.id !== productId);
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const cartItemsDiv = document.getElementById('cartItems');
+    const badge = document.getElementById('cartBadge');
+    const totalDiv = document.getElementById('cartTotalAmount');
+
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    badge.innerText = totalQty;
+    totalDiv.innerText = `NT$ ${totalPrice}`;
+
+    if (cart.length === 0) {
+      cartItemsDiv.innerHTML = '<p style="text-align:center; color:#888; padding:20px 0;">購物車是空的</p>';
+      return;
+    }
+
+    cartItemsDiv.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p>NT$ ${item.price} x ${item.qty}</p>
+        </div>
+        <div class="cart-item-controls">
+          <button onclick="changeQty(${item.id}, -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty(${item.id}, 1)">+</button>
+          <button class="btn-delete" onclick="removeItem(${item.id})">&times;</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleCart(show) {
+    document.getElementById('cartOverlay').classList.toggle('active', show);
+    document.getElementById('cartDrawer').classList.toggle('active', show);
+  }
+
+  // --- 發送訂單至 n8n Webhook ---
+  async function submitOrder() {
+    if (cart.length === 0) {
+      alert('您的購物車是空的！');
+      return;
+    }
+
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const email = document.getElementById('custEmail').value.trim();
+
+    if (!name || !phone || !email) {
+      alert('請完整的填寫訂購者基本資料！');
+      return;
+    }
+
+    const btnSubmit = document.getElementById('btnSubmit');
+    btnSubmit.disabled = true;
+    btnSubmit.innerText = '訂單傳送中...';
+
+    // 格式化要傳送到 n8n 的 JSON 結構
+    const orderData = {
+      customer: { name, phone, email },
+      items: cart.map(item => ({
+        product_name: item.name,
+        unit_price: item.price,
+        quantity: item.qty,
+        subtotal: item.price * item.qty
+      })),
+      total_amount: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
+      order_date: new Date().toISOString()
+    };
+
+    try {
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderData)
+      });
+
+      if (response.ok) {
+        alert('🎉 訂單已成功送出！感謝您的購買。');
+        cart = [];
+        updateCartUI();
+        document.getElementById('orderForm').reset();
+        toggleCart(false);
+      } else {
+        alert('訂單送出失敗，請確認 n8n Webhook 狀態。');
+      }
+    } catch (error) {
+      console.error('發送失敗：', error);
+      alert('發生錯誤，無法發送訂單至 n8n！');
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.innerText = '送出訂單';
+    }
+  }
+
+  async function loadData() {
+    const notice = document.getElementById('statusNotice');
+    try {
+      const res = await fetch(gvizUrl);
+      if (!res.ok) throw new Error("HTTP 狀態碼異常");
+
+      const rawText = await res.text();
+      const jsonStr = rawText.substring(rawText.indexOf('{'), rawText.lastIndexOf('}') + 1);
+      const data = JSON.parse(jsonStr);
+
+      const rows = data.table.rows;
+      if (!rows || rows.length === 0) throw new Error("未讀取到資料列");
+
+      productsData = rows.map((row, idx) => {
+        const name = row.c[0] ? (row.c[0].f || row.c[0].v) : '';
+        const stock = row.c[1] ? (row.c[1].v) : 0;
+        const price = row.c[2] ? (row.c[2].v) : 0;
+        return enrichProduct(name, stock, price, idx);
+      }).filter(p => p.name);
+
+      renderProducts(productsData);
+      notice.className = "status-bar";
+      notice.innerHTML = `<span>成功從 Google 試算表同步 <strong>${productsData.length}</strong> 筆即時商品資料！</span>`;
+    } catch (err) {
+      console.error("載入失敗：", err);
+      notice.className = "status-bar warning";
+      notice.innerHTML = `<span><strong>載入失敗：</strong>請確認試算表設定。</span>`;
+    }
+  }
+
+  loadData();
+</script>
+</body>
+</html>
+
