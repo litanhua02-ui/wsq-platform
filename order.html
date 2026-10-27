@@ -490,7 +490,7 @@
     };
   }
 
-  function renderProducts(items) {
+ function renderProducts(items) {
     const grid = document.getElementById('productGrid');
     grid.innerHTML = items.map(item => {
       const isLow = item.stock <= 3;
@@ -498,7 +498,7 @@
       return `
         <div class="product-card">
           <div class="img-wrapper">
-            <img src="item.img"alt="{item.name}">
+            <img src="${item.img}" alt="${item.name}">
             <div class="stock-badge ${isLow ? 'low' : ''}">
               ${isOut ? '已售完' : `庫存剩餘 ${item.stock} 份`}
             </div>
@@ -510,7 +510,7 @@
               <div class="price-tag">NT$ ${item.price}<small>/份</small></div>
               <div class="stock-info">${isOut ? '補貨中' : '當日鮮採'}</div>
             </div>
-            <button class="btn-buy" isOut?'disabled':''onclick="addToCart({item.id})">
+            <button class="btn-buy" ${isOut ? 'disabled' : ''} onclick="addToCart(${item.id})">
               ${isOut ? '暫無庫存' : '加入購物袋'}
             </button>
           </div>
