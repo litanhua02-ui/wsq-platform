@@ -1,410 +1,422 @@
-<!-- 1. 釘選在上方的固定導覽列（列印時會自動隱藏） -->
-<header class="sticky top-0 z-50 max-w-4xl w-full bg-white/95 backdrop-blur shadow-md rounded-2xl p-5 mb-6 border border-slate-200 print:hidden">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border-b pb-3 mb-3">
-        <div>
-            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">修課科目：專題製作</span>
-            <span class="text-xs font-semibold text-slate-500 ml-2">第一循環 · 第 2 週</span>
-            <h1 class="text-xl font-bold text-slate-900 mt-1">Docker Compose 與多容器管理</h1>
-        </div>
-        <a href="https://pse.is/9rrhvg" target="_blank" class="flex items-center gap-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow transition shrink-0">
-            💬 呼叫 AI 老師 (Gem)
-        </a>
-    </div>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學習歷程平台 - 專題製作</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .print\:hidden { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col items-center py-6 px-4 text-base">
 
-    <!-- 學生基本資料列 -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">班級</label>
-            <input type="text" id="className" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：進修部一">
+    <!-- 1. 釘選在上方的固定導覽列（列印時會自動隱藏） -->
+    <header class="sticky top-0 z-50 max-w-4xl w-full bg-white/95 backdrop-blur shadow-md rounded-2xl p-5 mb-6 border border-slate-200 print:hidden">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border-b pb-3 mb-3">
+            <div>
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">修課科目：專題製作</span>
+                <span class="text-xs font-semibold text-slate-500 ml-2">第一循環 · 第 2 週</span>
+                <h1 class="text-xl font-bold text-slate-900 mt-1">Docker Compose 與多容器管理</h1>
+            </div>
+            <a href="https://pse.is/9rrhvg" target="_blank" class="flex items-center gap-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow transition shrink-0">
+                💬 呼叫 Docker AI 老師 (Gem)
+            </a>
         </div>
-        <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">座號</label>
-            <input type="text" id="seatNo" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：01">
-        </div>
-        <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">姓名</label>
-            <input type="text" id="studentName" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：王小明">
-        </div>
-        <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">組別</label>
-            <input type="text" id="groupNo" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：第1組">
-        </div>
-    </section>
-</header>
 
-<div class="max-w-4xl w-full bg-white shadow-xl rounded-2xl p-6 md:p-10 border border-slate-100">
-    
-    <!-- WSQ 填寫表單 -->
-    <form id="wsqForm" class="space-y-8">
-
-        <!-- 📌 本週學習核心概念區塊 -->
-        <section class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-6">
-            <h2 class="text-sm font-bold text-indigo-900 mb-2 flex items-center gap-1.5 uppercase tracking-wide">
-                <span>📌</span> 本週學習核心概念
-            </h2>
-            <ul class="text-sm text-indigo-950 space-y-2 list-disc list-inside leading-relaxed">
-                <li><strong>資源統整者 (Docker Compose)</strong>：為何需要 Docker Compose？以單一 YAML 檔定義 Services、Volumes、Networks。</li>
-                <li><strong>資料持久化 (Volume)</strong>：Docker Volume 避免容器重啟或刪除後商店訂單與庫存資料遺失。</li>
-                <li><strong>一鍵部署</strong>：執行 `docker compose up -d` 同步啟動多個關聯服務的架構概念。</li>
-            </ul>
+        <!-- 學生基本資料列 -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">班級</label>
+                <input type="text" id="className" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：進修部一">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">座號</label>
+                <input type="text" id="seatNo" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：01">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">姓名</label>
+                <input type="text" id="studentName" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：王小明">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">組別</label>
+                <input type="text" id="groupNo" class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="例如：第1組">
+            </div>
         </section>
+    </header>
 
-        <!-- 🎬 影片推薦區塊 -->
-        <section class="bg-blue-50/70 border border-blue-100 rounded-xl p-5">
-            <h3 class="text-sm font-bold text-blue-900 mb-2">🎬 影片推薦與自學區</h3>
-            <p class="text-xs text-blue-800 mb-3">請先觀看以下指定影片，理解核心概念後，再至下方完成 WSQ 學習單：</p>
-            <ul class="text-sm text-blue-800 space-y-1.5 list-disc list-inside">
-                <li><a href="https://www.youtube.com/watch?v=Kvs_mo-KSWY" target="_blank" class="underline hover:text-blue-600 font-medium">Docker Compose 基礎觀念與多容器管理教學</a></li>
-                <li><a href="https://www.youtube.com/watch?v=OAEhPxQCAno" target="_blank" class="underline hover:text-blue-600 font-medium">【初級】Docker Compose 資源統整 為何要使用 Docker Compose？</a></li>
-            </ul>
-        </section>
+    <div class="max-w-4xl w-full bg-white shadow-xl rounded-2xl p-6 md:p-10 border border-slate-100">
         
-        <!-- Part 1: Watch -->
-        <div class="space-y-6 pt-4 border-t">
-            <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">一、 Watch（觀察及紀錄）</h2>
+        <!-- WSQ 填寫表單 -->
+        <form id="wsqForm" class="space-y-8">
             
-            <!-- 題目 1 -->
-            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                <p class="text-sm font-bold text-slate-800">1. 當一個商店系統同時包含網頁、資料庫等多個容器時，為什麼只靠單一 docker run 指令會難以管理？</p>
-                <textarea id="watch1" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入，或點擊下方提示與教練進行思考..."></textarea>
-                <div class="flex flex-wrap justify-between items-center gap-2">
-                    <button type="button" onclick="toggleHint('hint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看多維度提示選項</button>
-                    <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch1')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
-                </div>
-                <div id="hint1" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                    <p class="font-bold">請參考以下多角度正確選項（點擊可直接帶入輸入框）：</p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(A) 【架構與指令繁複切入】指令過於冗長且每次需設定大量環境變數與連接埠，當系統有多個服務時手動啟動極易出錯。')">
-                        👉 **(A) 【架構與指令繁複切入】** 指令過於冗長且每次需設定大量環境變數與連接埠，當系統有多個服務時手動啟動極易出錯。
-                    </p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(B) 【自動化總開關切入】就像開店每天需手動開啟多個設備，缺乏「總開關」排程，漏掉一步即無法運作。')">
-                        👉 **(B) 【自動化總開關切入】** 就像開店每天需手動開啟多個設備，缺乏「總開關」排程，漏掉一步即無法運作。
-                    </p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(C) 【團隊協作與標準化切入】僅靠個人筆記難以讓團隊重現一致環境，缺乏統一的建築藍圖規範。')">
-                        👉 **(C) 【團隊協作與標準化切入】** 僅靠個人筆記難以讓團隊重現一致環境，缺乏統一的建築藍圖規範。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 題目 2 -->
-            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                <p class="text-sm font-bold text-slate-800">2. 影片提到 Docker Compose 的好處是什麼？它通常由哪三大區塊（Services、Volumes、Networks）組成？</p>
-                <textarea id="watch2" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
-                <div class="flex flex-wrap justify-between items-center gap-2">
-                    <button type="button" onclick="toggleHint('hint2')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看多維度提示選項</button>
-                    <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch2')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
-                </div>
-                <div id="hint2" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                    <p class="font-bold">請參考以下多角度正確選項（點擊可直接帶入輸入框）：</p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(A) 【系統化定義切入】用單一 YAML 檔定義並一鍵啟動多容器，涵蓋服務、資料卷與網路三大核心區塊。')">
-                        👉 **(A) 【系統化定義切入】** 用單一 YAML 檔定義並一鍵啟動多容器，涵蓋服務、資料卷與網路三大核心區塊。
-                    </p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(B) 【生活化 SOP 比喻切入】就像餐廳的「標準作業流程總表」，一鍵就能讓前後場所有元件同時上工。')">
-                        👉 **(B) 【生活化 SOP 比喻切入】** 就像餐廳的「標準作業流程總表」，一鍵就能讓前後場所有元件同時上工。
-                    </p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(C) 【宣告式劇本切入】相當於將複雜微服務架構「劇本化」，讓系統依宣告自動組裝。')">
-                        👉 **(C) 【宣告式劇本切入】** 相當於將複雜微服務架構「劇本化」，讓系統依宣告自動組裝。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 題目 3 -->
-            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                <p class="text-sm font-bold text-slate-800">3. 什麼是 Volume（資料卷）？若沒有設定 Volume，當商店容器被刪除或重啟時，裡面的資料會發生什麼事？</p>
-                <textarea id="watch3" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
-                <div class="flex flex-wrap justify-between items-center gap-2">
-                    <button type="button" onclick="toggleHint('hint3')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看多維度提示選項</button>
-                    <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch3')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
-                </div>
-                <div id="hint3" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                    <p class="font-bold">請參考以下多角度正確選項（點擊可直接帶入輸入框）：</p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(A) 【技術原理切入】將容器內資料掛載到主機實體目錄持久保存，若無設定則隨容器刪除而消失。')">
-                        👉 **(A) 【技術原理切入】** 將容器內資料掛載到主機實體目錄持久保存，若無設定則隨容器刪除而消失。
-                    </p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(B) 【生活化備份比喻切入】就像免洗筆記本與公司保險箱的差別，確保辦公室重裝時關鍵資產安全。')">
-                        👉 **(B) 【生活化備份比喻切入】** 就像免洗筆記本與公司保險箱的差別，確保辦公室重裝時關鍵資產安全。
-                    </p>
-                    <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(C) 【資料生命週期切入】容器屬用完即丟實例，必須透過 Volume 實現「資料與運算分離」。')">
-                        👉 **(C) 【資料生命週期切入】** 容器屬用完即丟實例，必須透過 Volume 實現「資料與運算分離」。
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Part 2: Summary -->
-        <div class="space-y-4">
-            <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">二、 Summary（總結）</h2>
-            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                <p class="text-sm font-bold text-slate-800">請依影片內容整理：Docker Compose 是如何將指令整合進單一 YAML 檔？Volume 如何保護商店的關鍵資料？</p>
-                <textarea id="summary" rows="4" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請寫下您的總結..."></textarea>
-                <div class="flex flex-wrap gap-2 items-center">
-                    <button type="button" onclick="toggleHint('sumHint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 第一層提示</button>
-                    <button type="button" onclick="toggleHint('sumHint2')" class="text-xs bg-purple-100 text-purple-900 px-3 py-1.5 rounded-lg hover:bg-purple-200 font-semibold">🔍 第二層句型鷹架</button>
-                    <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('summary')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold ml-auto">💬 卡住時問AI老師</a>
-                </div>
-                <div id="sumHint1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
-                    引導方向：請從「自動化編排（YAML 檔與一鍵開機）」以及「資料安全（Volume 防止資料隨容器刪除消失）」兩個方向思考。
-                </div>
-                <div id="sumHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('summary', '我學到 Docker Compose 像是商店的總指揮劇本，用單一 YAML 檔把網頁和資料庫等服務整合在一起，一鍵就能啟動。同時，透過 Volume 將重要資料掛載到主機上，即使容器刪除重啟，商店的訂單與庫存資料也不會遺失。(此為參考範本，請依個人理解自行修改)')">
-                    👉 點擊帶入句型範本：「我學到 Docker Compose 像是商店的總指揮劇本...」(此為參考範本，請依個人理解自行修改)
-                </div>
-            </div>
-        </div>
-
-        <!-- Part 3: Question -->
-        <div class="space-y-4">
-            <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">三、 Question（提問）</h2>
-            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                <p class="text-sm font-bold text-slate-800">請針對 docker-compose.yml 語法或 Volume 掛載路徑提出一個想深入確認的問題。</p>
-                <textarea id="question" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請寫下您的提問..."></textarea>
-                <div class="flex flex-wrap gap-2 items-center">
-                    <button type="button" onclick="toggleHint('queHint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 提示方向</button>
-                    <button type="button" onclick="toggleHint('queHint2')" class="text-xs bg-purple-100 text-purple-900 px-3 py-1.5 rounded-lg hover:bg-purple-200 font-semibold">🔍 第二層常見問句範本</button>
-                    <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('question')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold ml-auto">💬 卡住時問AI老師</a>
-                </div>
-                <div id="queHint1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
-                    引導方向：想想看在編寫 YAML 檔案時，如果「縮排」不小心打錯了會發生什麼事？或者當 Volume 的路徑對應寫錯時，系統會怎麼報錯？
-                </div>
-                <div id="queHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('question', '老師，當我在編寫 docker-compose.yml 時，如果 YAML 檔的縮排格式不小心用了空白鍵或對齊錯誤，執行 docker compose up 時系統會報什麼錯？我們要怎麼檢查？(此為參考範本，請依個人理解自行修改)')">
-                    👉 點擊帶入問句範本：「老師，當我在編寫 docker-compose.yml 時...」(此為參考範本，請依個人理解自行修改)
-                </div>
-            </div>
-        </div>
-
-        <!-- Part 4: Project Work Upload -->
-        <div class="space-y-4 pt-4 border-t">
-            <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">四、 實作作品上傳（以圖片為主）</h2>
-            <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                <p class="text-sm font-bold text-slate-800">請上傳本週 Docker Compose 啟動服務與 Volume 測試的截圖或成果照片</p>
-                <input type="file" id="projectImage" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer border rounded-lg p-2 bg-white" onchange="previewImage(event)">
-                <div id="imagePreviewContainer" class="hidden mt-3">
-                    <p class="text-xs font-semibold text-slate-600 mb-1">圖片預覽：</p>
-                    <img id="imagePreview" src="" alt="作品預覽" class="max-h-48 rounded-lg border shadow-sm object-contain">
-                </div>
-            </div>
-        </div>
-
-        <!-- 送出按鈕 -->
-        <div class="pt-4">
-            <button type="button" onclick="submitData()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 text-base">
-                🚀 送出學習單並產生正式學習歷程檔案
-            </button>
-        </div>
-    </form>
-
-    <!-- 正式文件樣式預覽區 -->
-    <div id="resultSection" class="hidden mt-8 pt-2">
-        <div class="bg-white border-2 border-slate-800 rounded-xl p-8 shadow-sm">
-            
-            <div class="text-center border-b-2 border-slate-800 pb-4 mb-6">
-                <h2 class="text-2xl font-bold tracking-wider text-slate-900">國立竹東高中進修部 學習歷程檔案</h2>
-                <p class="text-sm font-medium text-slate-600 mt-1">科目名稱：專題製作</p>
-            </div>
-
-            <table class="w-full text-sm mb-6 border-collapse border border-slate-400">
-                <tr>
-                    <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">修課科目</td>
-                    <td class="border border-slate-400 p-2.5 w-2/6">專題製作</td>
-                    <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">週次 / 主題</td>
-                    <td class="border border-slate-400 p-2.5 w-2/6">第 2 週：Docker Compose 與多容器管理</td>
-                </tr>
-                <tr>
-                    <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">班級 / 組別</td>
-                    <td class="border border-slate-400 p-2.5" id="resClassGroup"></td>
-                    <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">座號 / 姓名</td>
-                    <td class="border border-slate-400 p-2.5" id="resSeatName"></td>
-                </tr>
-            </table>
-
-            <div class="mb-6 space-y-4 text-sm">
-                <div class="bg-indigo-50/50 border border-indigo-200 rounded-lg p-4">
-                    <h4 class="font-bold text-indigo-900 mb-1">📌 本週核心概念</h4>
-                    <ul class="list-disc list-inside text-indigo-950 space-y-1 text-xs">
-                        <li>Docker Compose 資源統整：以單一 YAML 檔定義 Services、Volumes、Networks。</li>
-                        <li>資料持久化：透過 Docker Volume 避免容器重啟或刪除後資料遺失。</li>
-                        <li>一鍵部署：執行 `docker compose up -d` 同步啟動多服務。</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="space-y-5 text-sm text-slate-900">
-                <h3 class="font-bold border-l-4 border-slate-800 pl-2 text-base">WSQ 學習單作答與 AI 老師協助紀錄</h3>
+            <!-- Part 1: Watch -->
+            <div class="space-y-6">
+                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">一、 Watch（觀察及紀錄）</h2>
                 
-                <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                    <div class="flex justify-between items-start">
-                        <p class="font-bold text-slate-800">【Watch 題目 1】多容器系統為何難以用單一 docker run 管理？</p>
-                        <span id="resAi_watch1" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                <!-- 題目 1 -->
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">1. 當一個商店系統同時包含網頁、資料庫等多個容器時，為什麼只靠單一 docker run 指令會難以管理？</p>
+                    <textarea id="watch1" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入，或點擊下方多維度提示進行思考..."></textarea>
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <button type="button" onclick="toggleHint('hint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch1')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
-                    <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch1">（未填寫）</p>
+                    <div id="hint1" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
+                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(A) 【架構與指令繁複切入】指令過於冗長且每次需設定大量環境變數與連接埠，當系統有網頁、資料庫、快取等多個服務時，手動啟動極易出錯。')">
+                            👉 **(A) 【架構與指令繁複切入】** 指令過於冗長且每次需設定大量環境變數與連接埠，當系統有網頁、資料庫、快取等多個服務時，手動啟動極易出錯。
+                        </p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(B) 【自動化總開關切入】就像開店時如果每天都要手動開燈、開鐵捲門、開收銀機，缺乏一個「總開關或自動化排程」，只要漏掉一個步驟整個系統就無法運作。')">
+                            👉 **(B) 【自動化總開關切入】** 就像開店時如果每天都要手動開燈、開鐵捲門、開收銀機，缺乏一個「總開關或自動化排程」，只要漏掉一個步驟整個系統就無法運作。
+                        </p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(C) 【團隊協作與標準化切入】若只靠個人指令筆記，團隊其他人接手時很難重現一模一樣的啟動環境，缺乏像「整棟大樓的建築藍圖與統一規範」。')">
+                            👉 **(C) 【團隊協作與標準化切入】** 若只靠個人指令筆記，團隊其他人接手時很難重現一模一樣的啟動環境，缺乏像「整棟大樓的建築藍圖與統一規範」。
+                        </p>
+                    </div>
                 </div>
 
-                <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                    <div class="flex justify-between items-start">
-                        <p class="font-bold text-slate-800">【Watch 題目 2】Docker Compose 好處與三大區塊為何？</p>
-                        <span id="resAi_watch2" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                <!-- 題目 2 -->
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">2. 影片提到 Docker Compose 的好處是什麼？它通常由哪三大區塊（Services、Volumes、Networks）組成？</p>
+                    <textarea id="watch2" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <button type="button" onclick="toggleHint('hint2')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch2')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
-                    <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch2">（未填寫）</p>
+                    <div id="hint2" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
+                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(A) 【系統化定義切入】用單一 YAML 檔定義並一鍵啟動多容器，三大區塊分別負責服務定義（Services）、資料持久化（Volumes）與網路互連（Networks）。')">
+                            👉 **(A) 【系統化定義切入】** 用單一 YAML 檔定義並一鍵啟動多容器，三大區塊分別負責服務定義（Services）、資料持久化（Volumes）與網路互連（Networks）。
+                        </p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(B) 【生活化 SOP 比喻切入】就像是餐廳的「標準作業流程（SOP）與菜單總表」，把前場、後場和倉庫的運作全部寫在同一張表上，一鍵就能讓全店同時開工。')">
+                            👉 **(B) 【生活化 SOP 比喻切入】** 就像是餐廳的「標準作業流程（SOP）與菜單總表」，把前場、後場和倉庫的運作全部寫在同一張表上，一鍵就能讓全店同時開工。
+                        </p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(C) 【宣告式劇本切入】相當於將複雜的微服務架構「劇本化」，讓開發者透過宣告式設定（Declarative），讓系統自動去把各個元件組裝起來。')">
+                            👉 **(C) 【宣告式劇本切入】** 相當於將複雜的微服務架構「劇本化」，讓開發者透過宣告式設定（Declarative），讓系統自動去把各個元件組裝起來。
+                        </p>
+                    </div>
                 </div>
 
-                <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                    <div class="flex justify-between items-start">
-                        <p class="font-bold text-slate-800">【Watch 題目 3】什麼是 Volume？若沒設定會怎樣？</p>
-                        <span id="resAi_watch3" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                <!-- 題目 3 -->
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">3. 什麼是 Volume（資料卷）？若沒有設定 Volume，當商店容器被刪除或重啟時，裡面的資料會發生什麼事？</p>
+                    <textarea id="watch3" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <button type="button" onclick="toggleHint('hint3')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch3')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
-                    <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch3">（未填寫）</p>
-                </div>
-
-                <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                    <div class="flex justify-between items-start">
-                        <p class="font-bold text-slate-800">【Summary 總結】Docker Compose 與 Volume 機制總結</p>
-                        <span id="resAi_summary" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
-                    </div>
-                    <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resSummary">（未填寫）</p>
-                </div>
-
-                <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                    <div class="flex justify-between items-start">
-                        <p class="font-bold text-slate-800">【Question 提問】語法或掛載路徑提問</p>
-                        <span id="resAi_question" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
-                    </div>
-                    <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resQuestion">（未填寫）</p>
-                </div>
-
-                <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                    <p class="font-bold text-slate-800">【本週實作作品截圖/照片】</p>
-                    <div id="resImageContainer" class="bg-white p-3 border rounded-lg flex justify-center">
-                        <span id="resNoImage" class="text-slate-400 text-sm">（未上傳圖片）</span>
-                        <img id="resProjectImage" src="" alt="上傳的實作作品" class="max-h-64 rounded-lg object-contain hidden">
+                    <div id="hint3" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
+                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(A) 【技術原理切入】Volume 是將容器內的資料掛載到主機實體目錄上持久保存，若沒設定則容器刪除時資料會隨著容器生命週期結束而全部消失。')">
+                            👉 **(A) 【技術原理切入】** Volume 是將容器內的資料掛載到主機實體目錄上持久保存，若沒設定則容器刪除時資料會隨著容器生命週期結束而全部消失。
+                        </p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(B) 【生活化備份比喻切入】就像是在辦公室裡把重要檔案只存在「免洗紙筆記本」上，下班丟掉紙就沒了；而 Volume 就像是把檔案存入「公司保險箱」，即使辦公室翻新重裝，資料依然安全。')">
+                            👉 **(B) 【生活化備份比喻切入】** 就像是在辦公室裡把重要檔案只存在「免洗紙筆記本」上，下班丟掉紙就沒了；而 Volume 就像是把檔案存入「公司保險箱」，即使辦公室翻新重裝，資料依然安全。
+                        </p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(C) 【資料生命週期切入】容器本身設計是「用完即丟（Ephemeral）」的執行個體，必須透過 Volume 實現「資料與運算分離」，才能確保商店的庫存與歷史訂單萬無一失。')">
+                            👉 **(C) 【資料生命週期切入】** 容器本身設計是「用完即丟（Ephemeral）」的執行個體，必須透過 Volume 實現「資料與運算分離」，才能確保商店的庫存與歷史訂單萬無一失。
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-8 flex gap-4 print:hidden">
-                <button onclick="window.print()" class="bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-900">🖨️ 列印 / 存成 PDF 檔案</button>
-                <button onclick="location.reload()" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300">🔄 重新填寫</button>
+            <!-- Part 2: Summary -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">二、 Summary（總結）</h2>
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">請依影片內容整理：Docker Compose 是如何將指令整合進單一 YAML 檔？Volume 如何保護商店的關鍵資料？</p>
+                    <textarea id="summary" rows="4" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請寫下您的總結..."></textarea>
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <button type="button" onclick="toggleHint('sumHint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 第一層提示</button>
+                        <button type="button" onclick="toggleHint('sumHint2')" class="text-xs bg-purple-100 text-purple-900 px-3 py-1.5 rounded-lg hover:bg-purple-200 font-semibold">🔍 第二層句型鷹架</button>
+                        <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('summary')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold ml-auto">💬 卡住時問AI老師</a>
+                    </div>
+                    <div id="sumHint1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
+                        引導：請從兩個方向思考：1. 自動化編排（用 YAML 設定檔一鍵開機）；2. 資料安全（用 Volume 把資料保存在主機上避免遺失）。
+                    </div>
+                    <div id="sumHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('summary', '我學到 Docker Compose 像是商店的總指揮劇本，用單一 YAML 檔把網頁和資料庫等服務整合在一起，一鍵就能啟動。同時，透過 Volume 將重要資料掛載到主機上，即使容器刪除重啟，商店的訂單與庫存資料也不會遺失。')">
+                        👉 點擊帶入句型範本：「我學到 Docker Compose 像是商店的總指揮劇本，用單一 YAML 檔把網頁和資料庫等服務整合在一起，一鍵就能啟動。同時，透過 Volume 將重要資料掛載到主機上，即使容器刪除重啟，商店的訂單與庫存資料也不會遺失。」
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 3: Question -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">三、 Question（提問）</h2>
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">請針對 docker-compose.yml 語法或 Volume 掛載路徑提出一個想深入確認的問題。</p>
+                    <textarea id="question" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請寫下您的提問..."></textarea>
+                    <div class="flex flex-wrap gap-2 items-center">
+                        <button type="button" onclick="toggleHint('queHint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 提示方向</button>
+                        <button type="button" onclick="toggleHint('queHint2')" class="text-xs bg-purple-100 text-purple-900 px-3 py-1.5 rounded-lg hover:bg-purple-200 font-semibold">🔍 第二層常見問句範本</button>
+                        <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('question')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold ml-auto">💬 卡住時問AI老師</a>
+                    </div>
+                    <div id="queHint1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
+                        引導：想想看在編寫 YAML 檔案時，如果縮排打錯了會發生什麼事？或者當 Volume 的路徑對應寫錯時，系統會怎麼報錯？
+                    </div>
+                    <div id="queHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('question', '老師，當我在編寫 docker-compose.yml 時，如果 YAML 檔的縮排格式不小心用了空白鍵或對齊錯誤，執行 docker compose up 時系統會報什麼錯？我們要怎麼檢查？')">
+                        👉 點擊帶入問句範本：「老師，當我在編寫 docker-compose.yml 時，如果 YAML 檔的縮排格式不小心用了空白鍵或對齊錯誤，執行 docker compose up 時系統會報什麼錯？我們要怎麼檢查？」
+                    </div>
+                </div>
+            </div>
+
+            <!-- Part 4: 實作作品上傳 (圖片) -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">四、 實作作品上傳（Docker Compose 執行截圖）</h2>
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">請上傳您在本機成功執行 <code class="bg-slate-200 px-1.5 py-0.5 rounded text-indigo-700">docker compose up -d</code> 並啟動商店服務的畫面截圖：</p>
+                    <input type="file" id="projectImage" accept="image/*" onchange="previewImage(event)" class="w-full border rounded-lg p-2.5 text-sm bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <div id="imagePreviewContainer" class="hidden mt-3">
+                        <p class="text-xs font-semibold text-slate-600 mb-1">圖片預覽：</p>
+                        <img id="imagePreview" src="" alt="作品預覽" class="max-h-64 rounded-xl border border-slate-300 shadow-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 送出按鈕 -->
+            <div class="pt-4">
+                <button type="button" onclick="submitData()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 text-base">
+                    🚀 送出學習單並上傳作品至雲端
+                </button>
+            </div>
+        </form>
+
+        <!-- 正式文件樣式的個人學習歷程檔案預覽區 -->
+        <div id="resultSection" class="hidden mt-8 pt-2">
+            <div class="bg-white border-2 border-slate-800 rounded-xl p-8 shadow-sm">
+                
+                <!-- 正式文件標題 -->
+                <div class="text-center border-b-2 border-slate-800 pb-4 mb-6">
+                    <h2 class="text-2xl font-bold tracking-wider text-slate-900">國立竹東高中進修部 學習歷程檔案</h2>
+                    <p class="text-sm font-medium text-slate-600 mt-1">科目名稱：專題製作</p>
+                </div>
+
+                <!-- 基本資料表格 -->
+                <table class="w-full text-sm mb-6 border-collapse border border-slate-400">
+                    <tr>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">修課科目</td>
+                        <td class="border border-slate-400 p-2.5 w-2/6">專題製作</td>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">週次 / 主題</td>
+                        <td class="border border-slate-400 p-2.5 w-2/6">第 2 週：Docker Compose 與多容器管理</td>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">班級 / 組別</td>
+                        <td class="border border-slate-400 p-2.5" id="resClassGroup"></td>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">座號 / 姓名</td>
+                        <td class="border border-slate-400 p-2.5" id="resSeatName"></td>
+                    </tr>
+                </table>
+
+                <!-- 核心概念與自學影片區 (只在此處呈現，列印時不重複) -->
+                <div class="mb-6 space-y-4 text-sm">
+                    <div class="bg-indigo-50/50 border border-indigo-200 rounded-lg p-4">
+                        <h4 class="font-bold text-indigo-900 mb-1">📌 本週核心概念</h4>
+                        <ul class="list-disc list-inside text-indigo-950 space-y-1 text-xs">
+                            <li>Docker Compose 資源統整：以單一 YAML 檔定義 Services、Volumes、Networks。</li>
+                            <li>資料持久化：透過 Volume 避免容器重啟或刪除後商店訂單與庫存資料遺失。</li>
+                            <li>一鍵部署：掌握 <code>docker compose up -d</code> 同步啟動多服務。</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50/50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-900 mb-1">🎬 本週自學影片參考</h4>
+                        <ul class="list-disc list-inside text-blue-950 space-y-1 text-xs">
+                            <li>Docker Compose 基礎觀念與多容器管理教學</li>
+                            <li>【初級】Docker Compose 資源統整為何要使用 Docker Compose？</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 學習單詳細內容對照表 -->
+                <div class="space-y-5 text-sm text-slate-900">
+                    <h3 class="font-bold border-l-4 border-slate-800 pl-2 text-base">WSQ 學習單作答與 AI 老師協助紀錄</h3>
+                    
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Watch 題目 1】當一個商店系統同時包含網頁、資料庫等多個容器時，為什麼只靠單一 docker run 指令會難以管理？</p>
+                            <span id="resAi_watch1" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch1">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Watch 題目 2】影片提到 Docker Compose 的好處是什麼？它通常由哪三大區塊（Services、Volumes、Networks）組成？</p>
+                            <span id="resAi_watch2" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch2">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Watch 題目 3】什麼是 Volume（資料卷）？若沒有設定 Volume，當商店容器被刪除或重啟時，裡面的資料會發生什麼事？</p>
+                            <span id="resAi_watch3" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch3">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Summary 題目】請依影片內容整理：Docker Compose 是如何將指令整合進單一 YAML 檔？Volume 如何保護商店的關鍵資料？</p>
+                            <span id="resAi_summary" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resSummary">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Question 題目】請針對 docker-compose.yml 語法或 Volume 掛載路徑提出一個想深入確認的問題。</p>
+                            <span id="resAi_question" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resQuestion">（未填寫）</p>
+                    </div>
+
+                    <!-- 實作截圖預覽 -->
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <p class="font-bold text-slate-800">【實作作品截圖】Docker Compose 執行與服務啟動畫面</p>
+                        <div id="resImageContainer" class="mt-2">
+                            <p id="noImageText" class="text-slate-500 italic">（未上傳截圖）</p>
+                            <img id="resImagePreview" src="" alt="實作截圖" class="hidden max-h-80 rounded-xl border border-slate-300 shadow-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按鈕區 -->
+                <div class="mt-8 flex gap-4 print:hidden">
+                    <button onclick="window.print()" class="bg-slate-800 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-900">🖨️ 列印 / 存成 PDF 檔案</button>
+                    <button onclick="location.reload()" class="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-300">🔄 重新填寫</button>
+                </div>
             </div>
         </div>
+
     </div>
 
-</div>
-
-<!-- JavaScript 邏輯與 Google Apps Script 串接 -->
-<script>
-    let itemAiUsage = {
-        watch1: false,
-        watch2: false,
-        watch3: false,
-        summary: false,
-        question: false
-    };
-
-    let uploadedImageBase64 = "";
-
-    function previewImage(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                uploadedImageBase64 = e.target.result;
-                const preview = document.getElementById('imagePreview');
-                preview.src = uploadedImageBase64;
-                document.getElementById('imagePreviewContainer').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
-    function markItemAI(key) {
-        itemAiUsage[key] = true;
-    }
-
-    function toggleHint(id) {
-        const el = document.getElementById(id);
-        el.classList.toggle('hidden');
-    }
-
-    function useHint(targetId, text) {
-        document.getElementById(targetId).value = text;
-    }
-
-    function submitData() {
-        const className = document.getElementById('className').value.trim();
-        const seatNo = document.getElementById('seatNo').value.trim();
-        const studentName = document.getElementById('studentName').value.trim();
-        const groupNo = document.getElementById('groupNo').value.trim();
-
-        if (!className || !seatNo || !studentName) {
-            alert('請填寫基本的班級、座號與姓名！');
-            return;
-        }
-
-        const formData = {
-            course: "專題製作",
-            school: "國立竹東高中進修部",
-            week: "第 2 週",
-            topic: "Docker Compose 與多容器管理",
-            className: className,
-            seatNo: seatNo,
-            studentName: studentName,
-            groupNo: groupNo,
-            watch1: document.getElementById('watch1').value,
-            watch2: document.getElementById('watch2').value,
-            watch3: document.getElementById('watch3').value,
-            watch4: "",
-            summary: document.getElementById('summary').value,
-            question: document.getElementById('question').value,
-            projectImage: uploadedImageBase64,
-            aiUsageDetail: itemAiUsage
+    <!-- JavaScript 邏輯與雲端串接 -->
+    <script>
+        let itemAiUsage = {
+            watch1: false,
+            watch2: false,
+            watch3: false,
+            summary: false,
+            question: false
         };
 
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxvwAlVpQgssEA3zKt1iIh_InM5Rsvm4cyjOxnjlqZi5hwsFzQ9BFPiJLSLDR5TftAc/exec";
+        let base64Image = "";
 
-        document.getElementById('wsqForm').classList.add('hidden');
-        document.getElementById('resultSection').classList.remove('hidden');
-        
-        document.getElementById('resClassGroup').innerText = `${className} / ${groupNo || '未分組'}`;
-        document.getElementById('resSeatName').innerText = `${seatNo} 號 / ${studentName}`;
-
-        document.getElementById('resWatch1').innerText = formData.watch1 || '（未填寫）';
-        document.getElementById('resWatch2').innerText = formData.watch2 || '（未填寫）';
-        document.getElementById('resWatch3').innerText = formData.watch3 || '（未填寫）';
-        document.getElementById('resSummary').innerText = formData.summary || '（未填寫）';
-        document.getElementById('resQuestion').innerText = formData.question || '（未填寫）';
-
-        if (uploadedImageBase64) {
-            document.getElementById('resProjectImage').src = uploadedImageBase64;
-            document.getElementById('resProjectImage').classList.remove('hidden');
-            document.getElementById('resNoImage').classList.add('hidden');
-        } else {
-            document.getElementById('resProjectImage').classList.add('hidden');
-            document.getElementById('resNoImage').classList.remove('hidden');
+        function markItemAI(key) {
+            itemAiUsage[key] = true;
         }
 
-        const updateAiBadge = (key, elementId) => {
-            const el = document.getElementById(elementId);
-            if (itemAiUsage[key]) {
-                el.innerText = "AI 協助：有";
-                el.className = "text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 shrink-0 ml-2";
-            } else {
-                el.innerText = "AI 協助：無";
-                el.className = "text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2";
+        function toggleHint(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        function useHint(targetId, text) {
+            document.getElementById(targetId).value = text;
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64Image = e.target.result;
+                    document.getElementById('imagePreview').src = base64Image;
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
             }
-        };
+        }
 
-        updateAiBadge('watch1', 'resAi_watch1');
-        updateAiBadge('watch2', 'resAi_watch2');
-        updateAiBadge('watch3', 'resAi_watch3');
-        updateAiBadge('summary', 'resAi_summary');
-        updateAiBadge('question', 'resAi_question');
+        function submitData() {
+            const className = document.getElementById('className').value.trim();
+            const seatNo = document.getElementById('seatNo').value.trim();
+            const studentName = document.getElementById('studentName').value.trim();
+            const groupNo = document.getElementById('groupNo').value.trim();
 
-        fetch(GAS_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        }).then(() => {
-            console.log('第 2 週資料已成功送至 Google Sheet');
-        }).catch(error => {
-            console.error('送出失敗:', error);
-        });
-    }
-</script>
+            if (!className || !seatNo || !studentName) {
+                alert('請填寫基本的班級、座號與姓名！');
+                return;
+            }
+
+            const formData = {
+                course: "專題製作",
+                school: "國立竹東高中進修部",
+                week: "第 2 週",
+                topic: "Docker Compose 與多容器管理",
+                className: className,
+                seatNo: seatNo,
+                studentName: studentName,
+                groupNo: groupNo,
+                watch1: document.getElementById('watch1').value,
+                watch2: document.getElementById('watch2').value,
+                watch3: document.getElementById('watch3').value,
+                watch4: "",
+                summary: document.getElementById('summary').value,
+                question: document.getElementById('question').value,
+                aiUsageDetail: itemAiUsage,
+                projectImage: base64Image
+            };
+
+            const GAS_URL = "https://script.google.com/macros/s/AKfycbxvwAlVpQgssEA3zKt1iIh_InM5Rsvm4cyjOxnjlqZi5hwsFzQ9BFPiJLSLDR5TftAc/exec";
+
+            // 切換畫面至正式文件樣式預覽
+            document.getElementById('wsqForm').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+            
+            // 填入正式文件內容
+            document.getElementById('resClassGroup').innerText = `${className} / ${groupNo || '未分組'}`;
+            document.getElementById('resSeatName').innerText = `${seatNo} 號 / ${studentName}`;
+
+            document.getElementById('resWatch1').innerText = formData.watch1 || '（未填寫）';
+            document.getElementById('resWatch2').innerText = formData.watch2 || '（未填寫）';
+            document.getElementById('resWatch3').innerText = formData.watch3 || '（未填寫）';
+            document.getElementById('resSummary').innerText = formData.summary || '（未填寫）';
+            document.getElementById('resQuestion').innerText = formData.question || '（未填寫）';
+
+            if (base64Image) {
+                document.getElementById('resImagePreview').src = base64Image;
+                document.getElementById('resImagePreview').classList.remove('hidden');
+                document.getElementById('noImageText').classList.add('hidden');
+            } else {
+                document.getElementById('noImageText').classList.remove('hidden');
+                document.getElementById('resImagePreview').classList.add('hidden');
+            }
+
+            // 逐題更新 AI 使用狀態標籤
+            const updateAiBadge = (key, elementId) => {
+                const el = document.getElementById(elementId);
+                if (itemAiUsage[key]) {
+                    el.innerText = "AI 協助：有";
+                    el.className = "text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 shrink-0 ml-2";
+                } else {
+                    el.innerText = "AI 協助：無";
+                    el.className = "text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2";
+                }
+            };
+
+            updateAiBadge('watch1', 'resAi_watch1');
+            updateAiBadge('watch2', 'resAi_watch2');
+            updateAiBadge('watch3', 'resAi_watch3');
+            updateAiBadge('summary', 'resAi_summary');
+            updateAiBadge('question', 'resAi_question');
+
+            // 發送資料至 Google Sheet 與 Google Drive
+            fetch(GAS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            }).then(() => {
+                console.log('資料與圖片已成功發送至 Google 雲端');
+            }).catch(error => {
+                console.error('送出失敗:', error);
+            });
+        }
+    </script>
+</body>
+</html>
