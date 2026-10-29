@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教師端學習歷程總覽儀表板 - 國立竹東高中進修部</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .print\:hidden { display: none !important; }
+            body { background: white !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col items-center py-6 px-4 text-base">
+
+    <!-- 頂部控制與導覽列 -->
+    <header class="max-w-6xl w-full bg-white shadow-md rounded-2xl p-6 mb-6 border border-slate-200 print:hidden">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b pb-4 mb-4">
+            <div>
+                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">國立竹東高中進修部 · 教師專用</span>
+                <h1 class="text-2xl font-bold text-slate-900 mt-1">專題製作課程 - 學習歷程總覽儀表板</h1>
+            </div>
+            <button onclick="loadData()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow transition flex items-center gap-2">
+                🔄 重新載入雲端資料
+            </button>
+        </div>
+
+        <!-- 視角切換 Tabs -->
+        <div class="flex gap-3">
+            <button onclick="switchView('week')" id="tabWeek" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow">
+                📂 依週次列表檢視
+            </button>
+            <button onclick="switchView('student')" id="tabStudent" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-200 text-slate-700 hover:bg-slate-300">
+                👤 依學生列表檢視
+            </button>
+        </div>
+    </header>
+
+    <!-- 主要內容容器 -->
+    <main class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- 左側：清單選擇區 (佔 1 欄) -->
+        <section id="sidebarSection" class="md:col-span-1 bg-white shadow-lg rounded-2xl p-5 border border-slate-200 print:hidden space-y-4">
+            <h2 id="sidebarTitle" class="font-bold text-slate-800 text-base border-b pb-2">請選擇週次</h2>
+            <div id="filterContainer" class="space-y-2">
+                <!-- 動態載入的分類按鈕 (週次或學生) -->
+            </div>
+        </section>
+
+        <!-- 右側：學生正式學習歷程檔案預覽區 (佔 2 欄) -->
+        <section id="contentSection" class="md:col-span-2 bg-white shadow-xl rounded-2xl p-6 md:p-8 border border-slate-200">
+            <div id="welcomeState" class="text-center py-20 text-slate-400">
+                <p class="text-lg">👈 請先從左側選擇「週次」或「學生」來檢視學習歷程檔案</p>
+            </div>
+
+            <!-- 正式文件渲染區 (預設隱藏) -->
+            <div id="formalReport" class="hidden space-y-6">
+                
+                <!-- 頂部列印按鈕 -->
+                <div class="flex justify-between items-center border-b pb-4 print:hidden">
+                    <span id="reportStatus" class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700">已載入學生作答紀錄</span>
+                    <button onclick="window.print()" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-900 flex items-center gap-1.5">
+                        🖨️ 列印此份學習歷程 PDF
+                    </button>
+                </div>
+
+                <!-- 正式文件標題 -->
+                <div class="text-center border-b-2 border-slate-800 pb-4 mb-6">
+                    <h2 class="text-2xl font-bold tracking-wider text-slate-900">國立竹東高中進修部 學習歷程檔案</h2>
+                    <p class="text-sm font-medium text-slate-600 mt-1" id="repCourseWeek">科目名稱：專題製作</p>
+                </div>
+
+                <!-- 基本資料表格 -->
+                <table class="w-full text-sm mb-6 border-collapse border border-slate-400">
+                    <tr>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">修課科目</td>
+                        <td class="border border-slate-400 p-2.5 w-2/6">專題製作</td>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">週次 / 主題</td>
+                        <td class="border border-slate-400 p-2.5 w-2/6" id="repWeekTopic"></td>
+                    </tr>
+                    <tr>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">班級 / 組別</td>
+                        <td class="border border-slate-400 p-2.5" id="repClassGroup"></td>
+                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">座號 / 姓名</td>
+                        <td class="border border-slate-400 p-2.5" id="repSeatName"></td>
+                    </tr>
+                </table>
+
+                <!-- 學習單詳細內容對照表 -->
+                <div class="space-y-5 text-sm text-slate-900">
+                    <h3 class="font-bold border-l-4 border-slate-800 pl-2 text-base">WSQ 學習單作答與 AI 老師協助紀錄</h3>
+                    
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800" id="qTitle1">【Watch 題目 1】</p>
+                            <span id="repAi1" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAns1">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800" id="qTitle2">【Watch 題目 2】</p>
+                            <span id="repAi2" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAns2">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800" id="qTitle3">【Watch 題目 3】</p>
+                            <span id="repAi3" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAns3">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2" id="boxWatch4">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800" id="qTitle4">【Watch 題目 4】</p>
+                            <span id="repAi4" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAns4">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Summary 總結】</p>
+                            <span id="repAiSum" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAnsSum">（未填寫）</p>
+                    </div>
+
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <p class="font-bold text-slate-800">【Question 提問】</p>
+                            <span id="repAiQue" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
+                        </div>
+                        <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAnsQue">（未填寫）</p>
+                    </div>
+
+                    <!-- 實作截圖預覽 -->
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <p class="font-bold text-slate-800">【實作作品截圖】</p>
+                        <div id="repImageContainer" class="mt-2">
+                            <p id="repNoImage" class="text-slate-500 italic">（未上傳截圖）</p>
+                            <a id="repImgLink" href="#" target="_blank" class="block">
+                                <img id="repImgPreview" src="" alt="實作截圖" class="hidden max-h-80 rounded-xl border border-slate-300 shadow-sm hover:opacity-95 transition">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript 邏輯與雙向切換 -->
+    <script>
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxvwAlVpQgssEA3zKt1iIh_InM5Rsvm4cyjOxnjlqZi5hwsFzQ9BFPiJLSLDR5TftAc/exec";
+        
+        let allSubmissions = [];
+        let currentView = 'week'; // 'week' 或 'student'
+
+        window.onload = function() {
+            loadData();
+        };
+
+        function loadData() {
+            const container = document.getElementById('filterContainer');
+            container.innerHTML = '<p class="text-xs text-slate-500 text-center py-4">正在向 Google 雲端載入資料...</p>';
+
+            fetch(GAS_URL)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status === 'success') {
+                        allSubmissions = res.data;
+                        renderSidebar();
+                    } else {
+                        alert('載入資料失敗：次元資料有誤');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('無法連線至 Google Apps Script，請檢查 GAS 網址是否正確。');
+                });
+        }
+
+        function switchView(view) {
+            currentView = view;
+            const btnWeek = document.getElementById('tabWeek');
+            const btnStudent = document.getElementById('tabStudent');
+
+            if (view === 'week') {
+                btnWeek.className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow";
+                btnStudent.className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-200 text-slate-700 hover:bg-slate-300";
+                document.getElementById('sidebarTitle').innerText = "請選擇週次";
+            } else {
+                btnStudent.className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white shadow";
+                btnWeek.className = "px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-200 text-slate-700 hover:bg-slate-300";
+                document.getElementById('sidebarTitle').innerText = "請選擇學生";
+            }
+            renderSidebar();
+        }
+
+        function renderSidebar() {
+            const container = document.getElementById('filterContainer');
+            container.innerHTML = '';
+
+            if (allSubmissions.length === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-500 text-center py-4">目前尚無學生繳交任何學習單。</p>';
+                return;
+            }
+
+            if (currentView === 'week') {
+                // 萃取所有不重複的週次
+                const weeks = [...new Set(allSubmissions.map(item => item.week))].sort();
+                
+                weeks.forEach(week => {
+                    const count = allSubmissions.filter(item => item.week === week).length;
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 transition flex justify-between items-center";
+                    btn.innerHTML = `<span>📂 ${week}</span> <span class="text-xs bg-slate-200 px-2 py-0.5 rounded-full text-slate-700">${count} 份</span>`;
+                    btn.onclick = () => showWeekStudents(week);
+                    container.appendChild(btn);
+                });
+            } else {
+                // 萃取所有不重複的學生 (依 班級+座號+姓名)
+                const studentMap = new Map();
+                allSubmissions.forEach(item => {
+                    const key = `${item.className}_${item.seatNo}_${item.studentName}`;
+                    if (!studentMap.has(key)) {
+                        studentMap.set(key, {
+                            className: item.className,
+                            seatNo: item.seatNo,
+                            studentName: item.studentName,
+                            submissions: []
+                        });
+                    }
+                    studentMap.get(key).submissions.push(item);
+                });
+
+                studentMap.forEach((student, key) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 transition flex justify-between items-center";
+                    btn.innerHTML = `<span>👤 ${student.className || ''} ${student.seatNo || ''}号 ${student.studentName}</span> <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">${student.submissions.length} 週</span>`;
+                    btn.onclick = () => showStudentWeeks(student);
+                    container.appendChild(btn);
+                });
+            }
+        }
+
+        // 點擊週次後，列出該週學生清單
+        function showWeekStudents(week) {
+            const container = document.getElementById('filterContainer');
+            // 保留上方或重新渲染側邊欄，這裡我們在下方動態列出該週學生
+            const items = allSubmissions.filter(item => item.week === week);
+            
+            // 建立一個子選單容器
+            let subList = document.getElementById('subSidebarList');
+            if (!subList) {
+                subList = document.createElement('div');
+                subList.id = 'subSidebarList';
+                subList.className = "mt-3 space-y-1.5 max-h-96 overflow-y-auto pr-1";
+                container.appendChild(subList);
+            }
+            subList.innerHTML = `<p class="text-xs font-bold text-indigo-600 mb-1">📌 ${week} 繳交名單：</p>`;
+
+            items.forEach(item => {
+                const sBtn = document.createElement('button');
+                sBtn.className = "w-full text-left px-3 py-2 rounded-lg text-xs font-medium bg-white hover:bg-indigo-600 hover:text-white border border-slate-200 transition shadow-sm";
+                sBtn.innerHTML = `<div>${item.className || '未填班'} | ${item.seatNo || '無'}號 | <strong class="font-bold">${item.studentName || '無名'}</strong></div><div class="text-[10px] text-slate-400 mt-0.5">組別: ${item.groupNo || '未分組'}</div>`;
+                sBtn.onclick = () => renderReport(item);
+                subList.appendChild(sBtn);
+            });
+        }
+
+        // 點擊學生後，列出該學生各週次清單
+        function showStudentWeeks(student) {
+            const container = document.getElementById('filterContainer');
+            let subList = document.getElementById('subSidebarList');
+            if (!subList) {
+                subList = document.createElement('div');
+                subList.id = 'subSidebarList';
+                subList.className = "mt-3 space-y-1.5 max-h-96 overflow-y-auto pr-1";
+                container.appendChild(subList);
+            }
+            subList.innerHTML = `<p class="text-xs font-bold text-indigo-600 mb-1">📌 ${student.studentName} 的各週紀錄：</p>`;
+
+            student.submissions.forEach(item => {
+                const sBtn = document.createElement('button');
+                sBtn.className = "w-full text-left px-3 py-2 rounded-lg text-xs font-medium bg-white hover:bg-indigo-600 hover:text-white border border-slate-200 transition shadow-sm flex justify-between items-center";
+                sBtn.innerHTML = `<span>🎯 ${item.week} (${item.topic || ''})</span> <span class="text-[10px] text-slate-400">查看 📄</span>`;
+                sBtn.onclick = () => renderReport(item);
+                subList.appendChild(sBtn);
+            });
+        }
+
+        // 渲染正式學習歷程報告
+        function renderReport(item) {
+            document.getElementById('welcomeState').classList.add('hidden');
+            document.getElementById('formalReport').classList.remove('hidden');
+
+            document.getElementById('repWeekTopic').innerText = `${item.week}：${item.topic || '專題製作'}`;
+            document.getElementById('repClassGroup').innerText = `${item.className || ''} / ${item.groupNo || '未分組'}`;
+            document.getElementById('repSeatName').innerText = `${item.seatNo || ''} 號 / ${item.studentName || ''}`;
+
+            // 填寫 WSQ 內容
+            document.getElementById('repAns1').innerText = item.watch1 || '（未填寫）';
+            document.getElementById('repAns2').innerText = item.watch2 || '（未填寫）';
+            document.getElementById('repAns3').innerText = item.watch3 || '（未填寫）';
+            
+            // 針對第 1 週有 4 題，第 2 週以後可能只有 3 題的適應處理
+            if (item.watch4 && item.watch4.trim() !== "") {
+                document.getElementById('boxWatch4').classList.remove('hidden');
+                document.getElementById('repAns4').innerText = item.watch4;
+            } else {
+                // 如果沒有 watch4 (例如第2週)，則隱藏該區塊
+                if (item.week.includes("第 2") || item.week.includes("第 3") || item.week.includes("第 4")) {
+                    document.getElementById('boxWatch4').classList.add('hidden');
+                }
+            }
+
+            document.getElementById('repAnsSum').innerText = item.summary || '（未填寫）';
+            document.getElementById('repAnsQue').innerText = item.question || '（未填寫）';
+
+            // 處理圖片截圖預覽
+            const imgPreview = document.getElementById('repImgPreview');
+            const noImg = document.getElementById('repNoImage');
+            const imgLink = document.getElementById('repImgLink');
+
+            if (item.imageUrl && item.imageUrl.startsWith("http")) {
+                imgPreview.src = item.imageUrl;
+                imgLink.href = item.imageUrl;
+                imgPreview.classList.remove('hidden');
+                noImg.classList.add('hidden');
+            } else {
+                imgPreview.classList.add('hidden');
+                noImg.classList.remove('hidden');
+                noImg.innerText = item.imageUrl ? `（${item.imageUrl}）` : "（未上傳截圖）";
+            }
+
+            // 解析 AI 使用紀錄
+            let aiObj = {};
+            try {
+                aiObj = typeof item.aiUsageDetail === 'string' ? JSON.parse(item.aiUsageDetail) : (item.aiUsageDetail || {});
+            } catch(e) { aiObj = {}; }
+
+            const setAiBadge = (key, elId) => {
+                const el = document.getElementById(elId);
+                if (aiObj[key] === true) {
+                    el.innerText = "AI 協助：有";
+                    el.className = "text-xs font-semibold px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 shrink-0 ml-2";
+                } else {
+                    el.innerText = "AI 協助：無";
+                    el.className = "text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2";
+                }
+            };
+
+            setAiBadge('watch1', 'repAi1');
+            setAiBadge('watch2', 'repAi2');
+            setAiBadge('watch3', 'repAi3');
+            setAiBadge('watch4', 'repAi4');
+            setAiBadge('summary', 'repAiSum');
+            setAiBadge('question', 'repAiQue');
+        }
+    </script>
+</body>
+</html>
