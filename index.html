@@ -82,7 +82,7 @@
                 <!-- 題目 1 -->
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
                     <p class="text-sm font-bold text-slate-800">1. 影片中提到，傳統軟體安裝常遇到環境衝突，Docker 主要想解決什麼「部署問題」？[cite: 1]</p>
-                    <textarea id="watch1" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入，或點擊下方提示與教練進行思考..."></textarea>
+                    <textarea id="watch1" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入，or點擊下方提示與教練進行思考..."></textarea>
                     <div class="flex flex-wrap justify-between items-center gap-2">
                         <button type="button" onclick="toggleHint('hint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與選擇選項</button>
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch1')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
@@ -117,7 +117,7 @@
                         <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(料理食譜比喻) Image 像是標準食譜與備料清單，Container 像是實際炒出來可享用的一盤菜。(此為參考範本，請依個人理解自行修改)')">
                             👉 **(B) 料理食譜比喻**：Image 像是標準食譜與備料清單，Container 像是實際炒出來的一盤菜。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(模型玩具比喻) Image 像是未拆封的鋼彈模型外盒與說明書，Container 像是組裝好的模型成品。(此為參考範本，請依個人理解自行修改)')">
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(模型玩具比喻) Image 像是未拆封的模型說明書，Container 像是組裝好的成品。(此為參考範本，請依個人理解自行修改)')">
                             👉 **(C) 模型玩具比喻**：Image 像是未拆封的模型說明書，Container 像是組裝好的成品。
                         </p>
                     </div>
@@ -208,10 +208,23 @@
                 </div>
             </div>
 
+            <!-- Part 4: 實作作品上傳 (圖片) -->
+            <div class="space-y-4">
+                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">四、 實作作品上傳（Docker Hello World 截圖）</h2>
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <p class="text-sm font-bold text-slate-800">請上傳您在本機成功執行 <code class="bg-slate-200 px-1.5 py-0.5 rounded text-indigo-700">docker run -d -p 8080:80 nginx</code> 並在瀏覽器看到網頁上線的畫面截圖：</p>
+                    <input type="file" id="projectImage" accept="image/*" onchange="previewImage(event)" class="w-full border rounded-lg p-2.5 text-sm bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <div id="imagePreviewContainer" class="hidden mt-3">
+                        <p class="text-xs font-semibold text-slate-600 mb-1">圖片預覽：</p>
+                        <img id="imagePreview" src="" alt="作品預覽" class="max-h-64 rounded-xl border border-slate-300 shadow-sm">
+                    </div>
+                </div>
+            </div>
+
             <!-- 送出按鈕 -->
             <div class="pt-4">
                 <button type="button" onclick="submitData()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 text-base">
-                    🚀 送出學習單並產生正式學習歷程檔案
+                    🚀 送出學習單並上傳作品至雲端
                 </button>
             </div>
         </form>
@@ -312,6 +325,15 @@
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resQuestion">（未填寫）</p>
                     </div>
+
+                    <!-- 實作截圖預覽 -->
+                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
+                        <p class="font-bold text-slate-800">【實作作品截圖】Docker Hello World 與網頁上線畫面</p>
+                        <div id="resImageContainer" class="mt-2">
+                            <p id="noImageText" class="text-slate-500 italic">（未上傳截圖）</p>
+                            <img id="resImagePreview" src="" alt="實作截圖" class="hidden max-h-80 rounded-xl border border-slate-300 shadow-sm">
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 按鈕區 -->
@@ -335,6 +357,8 @@
             question: false
         };
 
+        let base64Image = "";
+
         function markItemAI(key) {
             itemAiUsage[key] = true;
         }
@@ -346,6 +370,19 @@
 
         function useHint(targetId, text) {
             document.getElementById(targetId).value = text;
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64Image = e.target.result;
+                    document.getElementById('imagePreview').src = base64Image;
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function submitData() {
@@ -374,7 +411,8 @@
                 watch4: document.getElementById('watch4').value,
                 summary: document.getElementById('summary').value,
                 question: document.getElementById('question').value,
-                aiUsageDetail: itemAiUsage
+                aiUsageDetail: itemAiUsage,
+                projectImage: base64Image
             };
 
             const GAS_URL = "https://script.google.com/macros/s/AKfycbwAAJDdY7S51baBguV8JgDoAwccWodJazZS6sM15pjDBHI_qlcas-52HGZCWhttBtb1/exec";
@@ -393,6 +431,15 @@
             document.getElementById('resWatch4').innerText = formData.watch4 || '（未填寫）';
             document.getElementById('resSummary').innerText = formData.summary || '（未填寫）';
             document.getElementById('resQuestion').innerText = formData.question || '（未填寫）';
+
+            if (base64Image) {
+                document.getElementById('resImagePreview').src = base64Image;
+                document.getElementById('resImagePreview').classList.remove('hidden');
+                document.getElementById('noImageText').classList.add('hidden');
+            } else {
+                document.getElementById('noImageText').classList.remove('hidden');
+                document.getElementById('resImagePreview').classList.add('hidden');
+            }
 
             // 逐題更新 AI 使用狀態標籤
             const updateAiBadge = (key, elementId) => {
@@ -425,7 +472,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             }).then(() => {
-                console.log('資料已成功送至 Google Sheet');
+                console.log('資料與圖片已成功發送至 Google 雲端');
             }).catch(error => {
                 console.error('送出失敗:', error);
             });
