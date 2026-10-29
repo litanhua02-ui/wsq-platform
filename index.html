@@ -19,8 +19,8 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border-b pb-3 mb-3">
             <div>
                 <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">修課科目：專題製作</span>
-                <span class="text-xs font-semibold text-slate-500 ml-2">第一循環 · 第 1 週</span>
-                <h1 class="text-xl font-bold text-slate-900 mt-1">Docker 概念入門與指令</h1>
+                <span class="text-xs font-semibold text-slate-500 ml-2">第一循環 · 第 1 週[cite: 1]</span>
+                <h1 class="text-xl font-bold text-slate-900 mt-1">Docker 概念入門與指令[cite: 1]</h1>
             </div>
             <a href="https://pse.is/9rrhvg" target="_blank" class="flex items-center gap-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow transition shrink-0">
                 💬 呼叫 Docker AI 老師 (Gem)
@@ -50,128 +50,119 @@
 
     <div class="max-w-4xl w-full bg-white shadow-xl rounded-2xl p-6 md:p-10 border border-slate-100">
         
-        <!-- 核心概念與自學影片導覽區 -->
-        <div class="mb-8 space-y-4 text-sm print:hidden">
-            <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-5 shadow-sm">
-                <h3 class="font-bold text-indigo-950 text-base mb-2 flex items-center gap-2">
-                    <span>📌</span> 本週學習核心概念
-                </h3>
-                <ul class="list-disc list-inside text-indigo-900 space-y-1.5 text-xs md:text-sm">
-                    <li><strong>環境衝突解決</strong>：Docker 欲解決傳統軟體部署時「在我電腦可以跑，別人電腦不行」的相依性問題。</li>
-                    <li><strong>Image 與 Container 定義</strong>：Image 為靜態映像檔（藍圖/安裝包），Container 為實際執行的實例。</li>
-                    <li><strong>基本操作指令</strong>：掌握 <code>docker run</code>、<code>docker ps</code>、<code>docker stop</code> 與連接埠對應（<code>-p host:container</code>）。</li>
-                </ul>
-            </div>
-            <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-5 shadow-sm">
-                <h3 class="font-bold text-blue-950 text-base mb-2 flex items-center gap-2">
-                    <span>🎬</span> 本週自學影片推薦（請先觀看影片再填寫下方學習單）
-                </h3>
-                <ul class="list-disc list-inside text-blue-900 space-y-1.5 text-xs md:text-sm">
-                    <li>
-                        <a href="https://tw.psee.ly/9rrlp9" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">
-                            看了會上癮的 Docker 新手入門篇 - 架構解析 (YouTube)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.youtube.com/watch?v=2BRioIP79SA&t=124s" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">
-                            Docker 實作全集 #1~#5｜25分鐘一次學會 Docker 新手完整教學 (YouTube)
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
         <!-- WSQ 填寫表單 -->
         <form id="wsqForm" class="space-y-8">
+
+            <!-- 📌 本週學習核心概念區塊 -->
+            <section class="bg-indigo-50/70 border border-indigo-100 rounded-xl p-6">
+                <h2 class="text-sm font-bold text-indigo-900 mb-2 flex items-center gap-1.5 uppercase tracking-wide">
+                    <span>📌</span> 本週學習核心概念[cite: 1]
+                </h2>
+                <ul class="text-sm text-indigo-950 space-y-2 list-disc list-inside leading-relaxed">
+                    <li><strong>Docker 部署環境衝突問題</strong>：解決「在我電腦可以跑，為什麼到別人電腦或伺服器就不行」的痛點[cite: 1]。</li>
+                    <li><strong>Image 與 Container 定義</strong>：Image 為靜態映像檔（藍圖/安裝包），Container 為運行的實例[cite: 1]。</li>
+                    <li><strong>基本操作指令</strong>：掌握 `docker run`、`docker ps`、`docker stop` 與連接埠對應（`-p host:container`）[cite: 1]。</li>
+                </ul>
+            </section>
+
+            <!-- 🎬 影片推薦區塊 -->
+            <section class="bg-blue-50/70 border border-blue-100 rounded-xl p-5">
+                <h3 class="text-sm font-bold text-blue-900 mb-2">🎬 影片推薦與自學區</h3>
+                <p class="text-xs text-blue-800 mb-3">請先觀看以下指定影片，理解核心概念後，再至下方完成 WSQ 學習單：[cite: 1]</p>
+                <ul class="text-sm text-blue-800 space-y-1.5 list-disc list-inside">
+                    <li><a href="https://www.youtube.com/watch?v=U14zuDZrZKQ" target="_blank" class="underline hover:text-blue-600 font-medium">看了會上癮的Docker 新手入門篇- 架構解析[cite: 1]</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=2BRioIP79SA&t=124s" target="_blank" class="underline hover:text-blue-600 font-medium">Docker 實作全集 #1~#5｜25分鐘一次學會 Docker 新手完整教學[cite: 1]</a></li>
+                </ul>
+            </section>
             
             <!-- Part 1: Watch -->
-            <div class="space-y-6">
+            <div class="space-y-6 pt-4 border-t">
                 <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">一、 Watch（觀察及紀錄）</h2>
                 
                 <!-- 題目 1 -->
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">1. 影片中提到，傳統軟體安裝常遇到環境衝突，Docker 主要想解決什麼「部署問題」？</p>
-                    <textarea id="watch1" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入，或點擊下方多維度提示進行思考..."></textarea>
+                    <p class="text-sm font-bold text-slate-800">1. 影片中提到，傳統軟體安裝常遇到環境衝突，Docker 主要想解決什麼「部署問題」？[cite: 1]</p>
+                    <textarea id="watch1" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入，或點擊下方提示與教練進行思考..."></textarea>
                     <div class="flex flex-wrap justify-between items-center gap-2">
-                        <button type="button" onclick="toggleHint('hint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <button type="button" onclick="toggleHint('hint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與選擇選項</button>
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch1')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
                     <div id="hint1" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(A) 【相依性衝突切入】安裝軟體時常因作業系統相依性或套件版本不同而導致「在我電腦可以跑，別人電腦不行」的衝突。')">
-                            👉 **(A) 【相依性衝突切入】** 安裝軟體時常因作業系統相依性或套件版本不同而導致「在我電腦可以跑，別人電腦不行」的衝突。
+                        <p class="font-bold">請參考以下正確觀念的切入角度（點擊可直接帶入修改）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(工程版本角度) 安裝軟體時常因作業系統相依性或套件版本不同而導致「在我電腦可以跑，別人電腦不行」的衝突。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(A) 工程版本角度**：解決「在我電腦可以跑，別人電腦不行」的相依性衝突[cite: 1]。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(B) 【環境隔離切入】就像是在同一台電腦裡為每個專案打造獨立的「無塵室」，避免不同專案的程式庫互相干擾污染。')">
-                            👉 **(B) 【環境隔離切入】** 就像是在同一台電腦裡為每個專案打造獨立的「無塵室」，避免不同專案的程式庫互相干擾污染。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(料理食譜比喻) 就像烹飪時備料沒帶齊，換到別人家廚房就煮不出一樣味道的困擾。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(B) 料理食譜比喻**：解決程式碼與相依環境沒有打包在一起，換環境就失效的困擾。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(C) 【可攜性與打包切入】將應用程式與其需要的執行環境打包成標準化的貨櫃，確保從開發測試到正式上線的環境完全一致。')">
-                            👉 **(C) 【可攜性與打包切入】** 將應用程式與其需要的執行環境打包成標準化的貨櫃，確保從開發測試到正式上線的環境完全一致。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch1', '(搬家打包比喻) 像搬家時把各種家具散裝運送零件散落，Docker 像連同房間裝潢一次打包的組合屋。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(C) 搬家打包比喻**：像搬家零件散落無法組裝，Docker 像連同房間裝潢一次打包的組合屋。
                         </p>
                     </div>
                 </div>
 
                 <!-- 題目 2 -->
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">2. 影片中如何比喻並區分什麼是 Image（映像檔） 與 Container（容器）？</p>
+                    <p class="text-sm font-bold text-slate-800">2. 影片中如何比喻並區分什麼是 Image（映像檔） 與 Container（容器）？[cite: 1]</p>
                     <textarea id="watch2" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
                     <div class="flex flex-wrap justify-between items-center gap-2">
-                        <button type="button" onclick="toggleHint('hint2')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <button type="button" onclick="toggleHint('hint2')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與選擇選項</button>
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch2')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
                     <div id="hint2" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(A) 【藍圖與實體切入】Image 像是「毛胚屋/建築設計圖」（靜態唯讀），Container 像是「實際入住且可供使用的房子/執行的實例」（動態運作）。')">
-                            👉 **(A) 【藍圖與實體切入】** Image 像是「毛胚屋/建築設計圖」（靜態唯讀），Container 像是「實際入住且可供使用的房子/執行的實例」（動態運作）。
+                        <p class="font-bold">請參考以下正確觀念的切入角度（點擊可直接帶入修改）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(建築藍圖比喻) Image 像是毛胚屋/建築設計圖（靜態模板），Container 像是實際入住且可供使用的房子（動態實例）。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(A) 建築藍圖比喻**：Image 像是毛胚屋/設計圖（靜態模板），Container 像是實際住進去的房子[cite: 1]。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(B) 【類別與物件切入】在程式設計中，Image 就像是一個「類別 (Class)」，而 Container 則是透過該類別實際產生的「物件 (Object)」。')">
-                            👉 **(B) 【類別與物件切入】** 在程式設計中，Image 就像是一個「類別 (Class)」，而 Container 則是透過該類別實際產生的「物件 (Object)」。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(料理食譜比喻) Image 像是標準食譜與備料清單，Container 像是實際炒出來可享用的一盤菜。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(B) 料理食譜比喻**：Image 像是標準食譜與備料清單，Container 像是實際炒出來的一盤菜。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(C) 【烘焙比喻切入】Image 就像是「蛋糕的模型與食譜」，而 Container 則是根據食譜實際烤出來、可以吃下肚的「美味蛋糕」。')">
-                            👉 **(C) 【烘焙比喻切入】** Image 像是「蛋糕的模型與食譜」，而 Container 則是根據食譜實際烤出來、可以吃下肚的「美味蛋糕」。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch2', '(模型玩具比喻) Image 像是未拆封的鋼彈模型外盒與說明書，Container 像是組裝好的模型成品。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(C) 模型玩具比喻**：Image 像是未拆封的模型說明書，Container 像是組裝好的成品。
                         </p>
                     </div>
                 </div>
 
                 <!-- 題目 3 -->
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">3. 在執行 docker run -d -p 8080:80 nginx 時，參數 -d 與 -p（連接埠對應）各自代表什麼意義？</p>
+                    <p class="text-sm font-bold text-slate-800">3. 在執行 docker run -d -p 8080:80 nginx 時，參數 -d 與 -p 各自代表什麼意義？[cite: 1]</p>
                     <textarea id="watch3" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
                     <div class="flex flex-wrap justify-between items-center gap-2">
-                        <button type="button" onclick="toggleHint('hint3')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <button type="button" onclick="toggleHint('hint3')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與選擇選項</button>
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch3')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
                     <div id="hint3" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(A) 【指令參數技術切入】 -d 表示在背景執行（Detached mode），-p 表示將本機的連接埠對應到容器內的連接埠（Port Forwarding）。')">
-                            👉 **(A) 【指令參數技術切入】** -d 表示在背景執行（Detached mode），-p 表示將本機的連接埠對應到容器內的連接埠（Port Forwarding）。
+                        <p class="font-bold">請參考以下正確觀念的切入角度（點擊可直接帶入修改）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(技術名詞角度) -d 表示在背景執行（Detached mode），-p 表示將本機的連接埠對應到容器內的連接埠。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(A) 技術名詞角度**：`-d` 背景執行，`-p` 連接埠對應（Port mapping）[cite: 1]。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(B) 【生活化對應切入】 -d 就像讓程式默默在「背景打工不佔用畫面」，-p 就像是在防火牆上開一個「專屬通訊窗口」，讓外部流量可以連進容器。')">
-                            👉 **(B) 【生活化對應切入】** -d 就像讓程式默默在「背景打工不佔用畫面」，-p 就像是在防火牆上開一個「專屬通訊窗口」，讓外部流量可以連進容器。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(手機App比喻) 就像手機 App 切換到背景執行，讓程式默默在幕後運作而不佔用畫面。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(B) 手機 App 比喻**：像切換到背景執行，讓程式默默在幕後運作。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(C) 【架構聯通切入】 -d 確保容器不會因為終端機關閉而停止，-p 實現了實體主機與虛擬容器之間的網路橋接。')">
-                            👉 **(C) 【架構聯通切入】** -d 確保容器不會因為終端機關閉而停止，-p 實現了實體主機與虛擬容器之間的網路橋接。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch3', '(大樓轉機比喻) 就像管理員將外部總機號碼（8080）轉接到內部特定部門分機（80）。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(C) 大樓轉機比喻**：像管理員將外部總機號碼轉接到內部特定分機。
                         </p>
                     </div>
                 </div>
 
                 <!-- 題目 4 -->
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">4. Docker 和傳統「虛擬機（VM）」在系統資源佔用與架構上有何關鍵差異？</p>
+                    <p class="text-sm font-bold text-slate-800">4. Docker 和傳統「虛擬機（VM）」在系統資源佔用與架構上有何關鍵差異？[cite: 1]</p>
                     <textarea id="watch4" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請自行輸入或點擊下方提示..."></textarea>
                     <div class="flex flex-wrap justify-between items-center gap-2">
-                        <button type="button" onclick="toggleHint('hint4')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與觸類旁通選項</button>
+                        <button type="button" onclick="toggleHint('hint4')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 觀看提示與選擇選項</button>
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('watch4')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold">💬 卡住時問AI老師</a>
                     </div>
                     <div id="hint4" class="hidden mt-2 p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950 space-y-2">
-                        <p class="font-bold">請參考以下多維度正確選項（點擊可直接帶入輸入框）：</p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch4', '(A) 【系統架構切入】虛擬機需要模擬完整的作業系統，耗費較多資源；Docker 共用宿主機的作業系統核心，輕量且啟動極快。')">
-                            👉 **(A) 【系統架構切入】** 虛擬機需要模擬完整的作業系統，耗費較多資源；Docker 共用宿主機的作業系統核心，輕量且啟動極快。
+                        <p class="font-bold">請參考以下正確觀念的切入角度（點擊可直接帶入修改）：</p>
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch4', '(系統架構角度) 虛擬機需要模擬完整 OS 較耗資源；Docker 共用宿主機核心，輕量且啟動極快。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(A) 系統架構角度**：VM 模擬完整 OS 較耗資源，Docker 共用核心輕量快速[cite: 1]。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch4', '(B) 【公寓大廈比喻切入】虛擬機像是「整棟獨立透天厝」（自帶水電管線與獨立地基笨重），而 Docker 像是「同一棟大樓裡的獨立套房」（共用大樓水電與地基輕巧）。')">
-                            👉 **(B) 【公寓大廈比喻切入】** 虛擬機像是「整棟獨立透天厝」（自帶水電管線與獨立地基笨重），而 Docker 像是「同一棟大樓裡的獨立套房」（共用大樓水電與地基輕巧）。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch4', '(大樓辦公室比喻) 虛擬機像自己重蓋獨立大樓，Docker 像在大樓租用共享辦公室共用核心設施。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(B) 大樓辦公室比喻**：VM 像重蓋獨立大樓，Docker 像租用共享辦公室共用核心設施。
                         </p>
-                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch4', '(C) 【效能與開機切入】虛擬機開機需要數分鐘且佔用大量記憶體；Docker 幾乎是秒級啟動，檔案大小也只有 MB 等級。')">
-                            👉 **(C) 【效能與開機切入】** 虛擬機開機需要數分鐘且佔用大量記憶體；Docker 幾乎是秒級啟動，檔案大小也只有 MB 等級。
+                        <p class="cursor-pointer hover:bg-amber-100 p-2 rounded leading-relaxed" onclick="useHint('watch4', '(交通工具比喻) 虛擬機像每人開一台專屬大卡車，Docker 像是共用引擎的大眾捷運系統。(此為參考範本，請依個人理解自行修改)')">
+                            👉 **(C) 交通工具比喻**：VM 像各自開大卡車，Docker 像是共用引擎的大眾捷運系統。
                         </p>
                     </div>
                 </div>
@@ -181,7 +172,7 @@
             <div class="space-y-4">
                 <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">二、 Summary（總結）</h2>
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">請依影片內容整理：Image、Container 與虛擬機的關係，並說明為何適合用 Docker 來部署商店的網頁與應用程式。</p>
+                    <p class="text-sm font-bold text-slate-800">請依影片內容整理：Image、Container 與虛擬機的關係，並說明為何適合用 Docker 來部署商店的網頁與應用程式。[cite: 1]</p>
                     <textarea id="summary" rows="4" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請寫下您的總結..."></textarea>
                     <div class="flex flex-wrap gap-2 items-center">
                         <button type="button" onclick="toggleHint('sumHint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 第一層提示</button>
@@ -189,10 +180,10 @@
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('summary')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold ml-auto">💬 卡住時問AI老師</a>
                     </div>
                     <div id="sumHint1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
-                        引導：請從 Image 角色、Container 執行實例、以及環境一致性三個方向來思考。
+                        引導：請從 Image 角色、Container 執行實例、以及環境一致性三個方向來思考[cite: 1]。
                     </div>
-                    <div id="sumHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('summary', '我學到 Image 像是建築藍圖，而 Container 像是實際執行的房子。Docker 比傳統虛擬機更省資源，因為它共用主機核心。在智慧商店專題中，使用 Docker 可以確保部署環境一致。')">
-                        👉 點擊帶入句型範本：「我學到 Image 像是...，Container 像是...。Docker 比虛擬機省資源因為...。在智慧商店專題中...」
+                    <div id="sumHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('summary', '我學到 Image 像是建築藍圖，而 Container 像是實際執行的房子。Docker 比傳統虛擬機更省資源，因為它共用主機核心。在智慧商店專題中，使用 Docker 可以確保部署環境一致。(此為參考範本，請依個人理解自行修改)')">
+                        👉 點擊帶入句型範本：「我學到 Image 像是...，Container 像是...。Docker 比虛擬機省資源因為...。在智慧商店專題中...」(此為參考範本，請依個人理解自行修改)[cite: 1]
                     </div>
                 </div>
             </div>
@@ -201,7 +192,7 @@
             <div class="space-y-4">
                 <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">三、 Question（提問）</h2>
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">請針對 Docker 指令（如 -p 連接埠對應或容器狀態）提出一個最容易混淆的問題。</p>
+                    <p class="text-sm font-bold text-slate-800">請針對 Docker 指令（如 -p 連接埠對應或容器狀態）提出一個最容易混淆的問題。[cite: 1]</p>
                     <textarea id="question" rows="3" class="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none bg-white" placeholder="請寫下您的提問..."></textarea>
                     <div class="flex flex-wrap gap-2 items-center">
                         <button type="button" onclick="toggleHint('queHint1')" class="text-xs bg-amber-100 text-amber-900 px-3 py-1.5 rounded-lg hover:bg-amber-200 font-semibold">💡 提示方向</button>
@@ -209,23 +200,10 @@
                         <a href="https://pse.is/9rrhvg" target="_blank" onclick="markItemAI('question')" class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1.5 rounded-lg hover:bg-indigo-200 font-semibold ml-auto">💬 卡住時問AI老師</a>
                     </div>
                     <div id="queHint1" class="hidden mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-950">
-                        引導：想想看在下指令時，連接埠數字寫反了會怎麼樣？或是重開機後資料還會在嗎？
+                        引導：想想看在下指令時，連接埠數字寫反了會怎麼樣？或是重開機後資料還會在嗎？[cite: 1]
                     </div>
-                    <div id="queHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('question', '老師，當我在執行 docker run 時，如果把 -p 參數左右兩邊的連接埠寫反了，會發生什麼錯誤？')">
-                        👉 點擊帶入問句範本：「老師，當我在執行 docker run 時，如果把 -p 參數左右兩邊的連接埠寫反了，會發生什麼錯誤？」
-                    </div>
-                </div>
-            </div>
-
-            <!-- Part 4: 實作作品上傳 (圖片) -->
-            <div class="space-y-4">
-                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">四、 實作作品上傳（Docker Hello World 截圖）</h2>
-                <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">請上傳您在本機成功執行 <code class="bg-slate-200 px-1.5 py-0.5 rounded text-indigo-700">docker run -d -p 8080:80 nginx</code> 並在瀏覽器看到網頁上線的畫面截圖：</p>
-                    <input type="file" id="projectImage" accept="image/*" onchange="previewImage(event)" class="w-full border rounded-lg p-2.5 text-sm bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                    <div id="imagePreviewContainer" class="hidden mt-3">
-                        <p class="text-xs font-semibold text-slate-600 mb-1">圖片預覽：</p>
-                        <img id="imagePreview" src="" alt="作品預覽" class="max-h-64 rounded-xl border border-slate-300 shadow-sm">
+                    <div id="queHint2" class="hidden mt-2 p-3 bg-purple-50 border border-purple-200 rounded-lg text-xs text-amber-950 cursor-pointer hover:bg-purple-100" onclick="useHint('question', '老師，當我在執行 docker run 時，如果把 -p 參數左右兩邊的連接埠寫反了，會發生什麼錯誤？(此為參考範本，請依個人理解自行修改)')">
+                        👉 點擊帶入問句範本：「老師，當我在執行 docker run 時，如果把 -p 參數左右兩邊的連接埠寫反了，會發生什麼錯誤？」(此為參考範本，請依個人理解自行修改)[cite: 1]
                     </div>
                 </div>
             </div>
@@ -233,7 +211,7 @@
             <!-- 送出按鈕 -->
             <div class="pt-4">
                 <button type="button" onclick="submitData()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 text-base">
-                    🚀 送出學習單並上傳作品至雲端
+                    🚀 送出學習單並產生正式學習歷程檔案
                 </button>
             </div>
         </form>
@@ -245,16 +223,16 @@
                 <!-- 正式文件標題 -->
                 <div class="text-center border-b-2 border-slate-800 pb-4 mb-6">
                     <h2 class="text-2xl font-bold tracking-wider text-slate-900">國立竹東高中進修部 學習歷程檔案</h2>
-                    <p class="text-sm font-medium text-slate-600 mt-1">科目名稱：專題製作</p>
+                    <p class="text-sm font-medium text-slate-600 mt-1">科目名稱：專題製作[cite: 1]</p>
                 </div>
 
                 <!-- 基本資料表格 -->
                 <table class="w-full text-sm mb-6 border-collapse border border-slate-400">
                     <tr>
                         <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">修課科目</td>
-                        <td class="border border-slate-400 p-2.5 w-2/6">專題製作</td>
+                        <td class="border border-slate-400 p-2.5 w-2/6">專題製作[cite: 1]</td>
                         <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">週次 / 主題</td>
-                        <td class="border border-slate-400 p-2.5 w-2/6">第 1 週：Docker 概念入門與指令</td>
+                        <td class="border border-slate-400 p-2.5 w-2/6">第 1 週：Docker 概念入門與指令[cite: 1]</td>
                     </tr>
                     <tr>
                         <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold">班級 / 組別</td>
@@ -267,18 +245,18 @@
                 <!-- 核心概念與自學影片區 (只在此處呈現，列印時不重複) -->
                 <div class="mb-6 space-y-4 text-sm">
                     <div class="bg-indigo-50/50 border border-indigo-200 rounded-lg p-4">
-                        <h4 class="font-bold text-indigo-900 mb-1">📌 本週核心概念</h4>
+                        <h4 class="font-bold text-indigo-900 mb-1">📌 本週核心概念[cite: 1]</h4>
                         <ul class="list-disc list-inside text-indigo-950 space-y-1 text-xs">
-                            <li>Docker 部署環境衝突問題：解決「在我電腦可以跑，為什麼到別人電腦或伺服器就不行」。</li>
-                            <li>Image 與 Container 定義：Image 靜態映像檔，Container 運行實例。</li>
-                            <li>基本操作指令：掌握 <code>docker run</code>、<code>docker ps</code>、<code>docker stop</code> 與連接埠對應。</li>
+                            <li>Docker 部署環境衝突問題：解決「在我電腦可以跑，為什麼到別人電腦或伺服器就不行」[cite: 1]。</li>
+                            <li>Image 與 Container 定義：Image 靜態映像檔，Container 運行實例[cite: 1]。</li>
+                            <li>基本操作指令：掌握 `docker run`、`docker ps`、`docker stop` 與連接埠對應[cite: 1]。</li>
                         </ul>
                     </div>
                     <div class="bg-blue-50/50 border border-blue-200 rounded-lg p-4">
-                        <h4 class="font-bold text-blue-900 mb-1">🎬 本週自學影片參考</h4>
+                        <h4 class="font-bold text-blue-900 mb-1">🎬 本週自學影片參考[cite: 1]</h4>
                         <ul class="list-disc list-inside text-blue-950 space-y-1 text-xs">
-                            <li><a href="https://tw.psee.ly/9rrlp9" target="_blank" class="text-indigo-600 underline">看了會上癮的 Docker 新手入門篇 - 架構解析</a></li>
-                            <li><a href="https://www.youtube.com/watch?v=2BRioIP79SA&t=124s" target="_blank" class="text-indigo-600 underline">Docker 實作全集 #1~#5｜25分鐘一次學會 Docker 新手完整教學</a></li>
+                            <li>看了會上癮的Docker 新手入門篇- 架構解析[cite: 1]</li>
+                            <li>Docker 實作全集 #1~#5｜25分鐘一次學會 Docker 新手完整教學[cite: 1]</li>
                         </ul>
                     </div>
                 </div>
@@ -289,7 +267,7 @@
                     
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Watch 題目 1】影片中提到，傳統軟體安裝常遇到環境衝突，Docker 主要想解決什麼「部署問題」？</p>
+                            <p class="font-bold text-slate-800">【Watch 題目 1】影片中提到，傳統軟體安裝常遇到環境衝突，Docker 主要想解決什麼「部署問題」？[cite: 1]</p>
                             <span id="resAi_watch1" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch1">（未填寫）</p>
@@ -297,7 +275,7 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Watch 題目 2】影片中如何比喻並區分什麼是 Image（映像檔） 與 Container（容器）？</p>
+                            <p class="font-bold text-slate-800">【Watch 題目 2】影片中如何比喻並區分什麼是 Image（映像檔） 與 Container（容器）？[cite: 1]</p>
                             <span id="resAi_watch2" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch2">（未填寫）</p>
@@ -305,7 +283,7 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Watch 題目 3】在執行 docker run -d -p 8080:80 nginx 時，參數 -d 與 -p 各自代表什麼意義？</p>
+                            <p class="font-bold text-slate-800">【Watch 題目 3】在執行 docker run -d -p 8080:80 nginx 時，參數 -d 與 -p 各自代表什麼意義？[cite: 1]</p>
                             <span id="resAi_watch3" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch3">（未填寫）</p>
@@ -313,7 +291,7 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Watch 題目 4】Docker 和傳統「虛擬機（VM）」在系統資源佔用與架構上有何關鍵差異？</p>
+                            <p class="font-bold text-slate-800">【Watch 題目 4】Docker 和傳統「虛擬機（VM）」在系統資源佔用與架構上有何關鍵差異？[cite: 1]</p>
                             <span id="resAi_watch4" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resWatch4">（未填寫）</p>
@@ -321,7 +299,7 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Summary 題目】請依影片內容整理：Image、Container 與虛擬機的關係，並說明為何適合用 Docker 來部署商店的網頁與應用程式。</p>
+                            <p class="font-bold text-slate-800">【Summary 題目】請依影片內容整理：Image、Container 與虛擬機的關係，並說明為何適合用 Docker 來部署商店的網頁與應用程式。[cite: 1]</p>
                             <span id="resAi_summary" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resSummary">（未填寫）</p>
@@ -329,19 +307,10 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Question 題目】請針對 Docker 指令（如 -p 連接埠對應或容器狀態）提出一個最容易混淆的問題。</p>
+                            <p class="font-bold text-slate-800">【Question 題目】請針對 Docker 指令（如 -p 連接埠對應或容器狀態）提出一個最容易混淆的問題。[cite: 1]</p>
                             <span id="resAi_question" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resQuestion">（未填寫）</p>
-                    </div>
-
-                    <!-- 實作截圖預覽 -->
-                    <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                        <p class="font-bold text-slate-800">【實作作品截圖】Docker Hello World 與網頁上線畫面</p>
-                        <div id="resImageContainer" class="mt-2">
-                            <p id="noImageText" class="text-slate-500 italic">（未上傳截圖）</p>
-                            <img id="resImagePreview" src="" alt="實作截圖" class="hidden max-h-80 rounded-xl border border-slate-300 shadow-sm">
-                        </div>
                     </div>
                 </div>
 
@@ -355,7 +324,7 @@
 
     </div>
 
-    <!-- JavaScript 邏輯與雲端串接 -->
+    <!-- JavaScript 邏輯與逐題 AI 追蹤 -->
     <script>
         let itemAiUsage = {
             watch1: false,
@@ -365,8 +334,6 @@
             summary: false,
             question: false
         };
-
-        let base64Image = "";
 
         function markItemAI(key) {
             itemAiUsage[key] = true;
@@ -379,19 +346,6 @@
 
         function useHint(targetId, text) {
             document.getElementById(targetId).value = text;
-        }
-
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    base64Image = e.target.result;
-                    document.getElementById('imagePreview').src = base64Image;
-                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
         }
 
         function submitData() {
@@ -420,8 +374,7 @@
                 watch4: document.getElementById('watch4').value,
                 summary: document.getElementById('summary').value,
                 question: document.getElementById('question').value,
-                aiUsageDetail: itemAiUsage,
-                projectImage: base64Image
+                aiUsageDetail: itemAiUsage
             };
 
             const GAS_URL = "https://script.google.com/macros/s/AKfycbxvwAlVpQgssEA3zKt1iIh_InM5Rsvm4cyjOxnjlqZi5hwsFzQ9BFPiJLSLDR5TftAc/exec";
@@ -440,15 +393,6 @@
             document.getElementById('resWatch4').innerText = formData.watch4 || '（未填寫）';
             document.getElementById('resSummary').innerText = formData.summary || '（未填寫）';
             document.getElementById('resQuestion').innerText = formData.question || '（未填寫）';
-
-            if (base64Image) {
-                document.getElementById('resImagePreview').src = base64Image;
-                document.getElementById('resImagePreview').classList.remove('hidden');
-                document.getElementById('noImageText').classList.add('hidden');
-            } else {
-                document.getElementById('noImageText').classList.remove('hidden');
-                document.getElementById('resImagePreview').classList.add('hidden');
-            }
 
             // 逐題更新 AI 使用狀態標籤
             const updateAiBadge = (key, elementId) => {
@@ -469,14 +413,19 @@
             updateAiBadge('summary', 'resAi_summary');
             updateAiBadge('question', 'resAi_question');
 
-            // 發送資料至 Google Sheet 與 Google Drive
+            if (GAS_URL.includes("YOUR_GOOGLE_APPS_SCRIPT")) {
+                console.log('模擬送出資料：', formData);
+                return;
+            }
+
+            // 發送資料至 Google Sheet
             fetch(GAS_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             }).then(() => {
-                console.log('資料與圖片已成功發送至 Google 雲端');
+                console.log('資料已成功送至 Google Sheet');
             }).catch(error => {
                 console.error('送出失敗:', error);
             });
