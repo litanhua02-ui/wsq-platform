@@ -140,14 +140,12 @@
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAnsQue">（未填寫）</p>
                     </div>
 
-                    <!-- 實作截圖預覽 -->
+                    <!-- 實作截圖預覽 (多張垂直排列) -->
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                        <p class="font-bold text-slate-800">【實作作品截圖】</p>
+                        <p class="font-bold text-slate-800">【實作作品截圖（多張垂直排列）】</p>
                         <div id="repImageContainer" class="mt-2">
                             <p id="repNoImage" class="text-slate-500 italic">（未上傳截圖）</p>
-                            <a id="repImgLink" href="#" target="_blank" class="block">
-                                <img id="repImgPreview" src="" alt="實作截圖" class="hidden max-h-80 rounded-xl border border-slate-300 shadow-sm hover:opacity-95 transition">
-                            </a>
+                            <div id="repImgList" class="flex flex-col gap-4 mt-2"></div>
                         </div>
                     </div>
                 </div>
@@ -179,7 +177,7 @@
                         allSubmissions = res.data;
                         renderSidebar();
                     } else {
-                        alert('載入資料失敗：次元資料有誤');
+                        alert('載入資料失敗：資料格式有誤');
                     }
                 })
                 .catch(err => {
@@ -245,7 +243,7 @@
                 studentMap.forEach((student, key) => {
                     const btn = document.createElement('button');
                     btn.className = "w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-slate-50 hover:bg-indigo-50 hover:text-indigo-700 border border-slate-200 transition flex justify-between items-center";
-                    btn.innerHTML = `<span>👤 ${student.className || ''} ${student.seatNo || ''}号 ${student.studentName}</span> <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">${student.submissions.length} 週</span>`;
+                    btn.innerHTML = `<span>👤 ${student.className || ''} ${student.seatNo || ''}號 ${student.studentName}</span> <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">${student.submissions.length} 週</span>`;
                     btn.onclick = () => showStudentWeeks(student);
                     container.appendChild(btn);
                 });
@@ -255,10 +253,8 @@
         // 點擊週次後，列出該週學生清單
         function showWeekStudents(week) {
             const container = document.getElementById('filterContainer');
-            // 保留上方或重新渲染側邊欄，這裡我們在下方動態列出該週學生
             const items = allSubmissions.filter(item => item.week === week);
             
-            // 建立一個子選單容器
             let subList = document.getElementById('subSidebarList');
             if (!subList) {
                 subList = document.createElement('div');
@@ -312,13 +308,11 @@
             document.getElementById('repAns2').innerText = item.watch2 || '（未填寫）';
             document.getElementById('repAns3').innerText = item.watch3 || '（未填寫）';
             
-            // 針對第 1 週有 4 題，第 2 週以後可能只有 3 題的適應處理
             if (item.watch4 && item.watch4.trim() !== "") {
                 document.getElementById('boxWatch4').classList.remove('hidden');
                 document.getElementById('repAns4').innerText = item.watch4;
             } else {
-                // 如果沒有 watch4 (例如第2週)，則隱藏該區塊
-                if (item.week.includes("第 2") || item.week.includes("第 3") || item.week.includes("第 4")) {
+                if (item.week.includes("第 2") || item.week.includes("第 3")) {
                     document.getElementById('boxWatch4').classList.add('hidden');
                 }
             }
@@ -326,18 +320,36 @@
             document.getElementById('repAnsSum').innerText = item.summary || '（未填寫）';
             document.getElementById('repAnsQue').innerText = item.question || '（未填寫）';
 
-            // 處理圖片截圖預覽
-            const imgPreview = document.getElementById('repImgPreview');
+            // 處理多張圖片截圖預覽 (支援逗號分隔的多個網址)
+            const imgListContainer = document.getElementById('repImgList');
             const noImg = document.getElementById('repNoImage');
-            const imgLink = document.getElementById('repImgLink');
+            imgListContainer.innerHTML = '';
 
-            if (item.imageUrl && item.imageUrl.startsWith("http")) {
-                imgPreview.src = item.imageUrl;
-                imgLink.href = item.imageUrl;
-                imgPreview.classList.remove('hidden');
-                noImg.classList.add('hidden');
+            if (item.imageUrl && item.imageUrl.trim() !== "" && !item.imageUrl.includes("失敗")) {
+                const urls = item.imageUrl.split(",");
+                urls.forEach((url, idx) => {
+                    const cleanUrl = url.trim();
+                    if (cleanUrl.startsWith("http")) {
+                        noImg.classList.add('hidden');
+                        const a = document.createElement('a');
+                        a.href = cleanUrl;
+                        a.target = "_blank";
+                        a.className = "block";
+
+                        const img = document.createElement('img');
+                        img.src = cleanUrl;
+                        img.alt = `實作截圖 ${idx + 1}`;
+                        img.className = "max-h-80 rounded-xl border border-slate-300 shadow-sm hover:opacity-95 transition w-full object-contain bg-white";
+                        
+                        a.appendChild(img);
+                        imgListContainer.appendChild(a);
+                    }
+                });
+                if (imgListContainer.children.length === 0) {
+                    noImg.classList.remove('hidden');
+                    noImg.innerText = `（${item.imageUrl}）`;
+                }
             } else {
-                imgPreview.classList.add('hidden');
                 noImg.classList.remove('hidden');
                 noImg.innerText = item.imageUrl ? `（${item.imageUrl}）` : "（未上傳截圖）";
             }
