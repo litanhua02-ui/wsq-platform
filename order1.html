@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小農青菜線上訂購系統</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-emerald-50 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden border border-emerald-100">
+        <!-- 頂部標題區 -->
+        <div class="bg-emerald-600 px-6 py-5 text-white">
+            <h1 class="text-2xl font-bold flex items-center gap-2">
+                <span>🥬</span> 小農嚴選・新鮮青菜訂購
+            </h1>
+            <p class="text-emerald-100 text-sm mt-1">填寫下方表單，將即時透過 n8n 自動化記錄您的訂單！</p>
+        </div>
+
+        <!-- 訂購表單 -->
+        <form id="orderForm" class="p-6 space-y-4">
+            <!-- 訂購者姓名 -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">訂購者姓名</label>
+                <input type="text" id="name" name="name" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    placeholder="例如：王小明">
+            </div>
+
+            <!-- 聯絡電話 -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">聯絡電話</label>
+                <input type="tel" id="phone" name="phone" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    placeholder="例如：0912-345678">
+            </div>
+
+            <!-- 電子郵件 -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">電子郵件 (Email)</label>
+                <input type="email" id="email" name="email" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    placeholder="例如：ming@example.com">
+            </div>
+
+            <!-- 商品選擇 -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">選擇青菜品項</label>
+                <select id="item" name="item" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white">
+                    <option value="" disabled selected>-- 請選擇品項 --</option>
+                    <option value="商品1">有機高麗菜</option>
+                    <option value="商品2">清甜地瓜葉</option>
+                    <option value="商品3">翠綠小白菜</option>
+                    <option value="商品4">鮮嫩空心菜</option>
+                </select>
+            </div>
+
+            <!-- 訂購數量 -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">訂購數量 (包/斤)</label>
+                <input type="number" id="quantity" name="quantity" min="1" value="1" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            </div>
+
+            <!-- 送出按鈕 -->
+            <button type="submit" id="submitBtn"
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md cursor-pointer">
+                確認送出訂單
+            </button>
+        </form>
+
+        <!-- 回應訊息提示區 -->
+        <div id="responseMessage" class="hidden mx-6 mb-6 p-4 rounded-lg text-sm text-center"></div>
+    </div>
+
+    <!-- JavaScript 處理表單送出 -->
+    <script>
+        // 【注意】請將下方網址替換為您在 n8n Webhook 節點取得的實際 Production/Test URL
+        const WEBHOOK_URL = 'https://YOUR_N8N_INSTANCE_URL/webhook/xxx-xxx-xxx';
+
+        document.getElementById('orderForm').addEventListener('submit async', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const responseMsg = document.getElementById('responseMessage');
+
+            // 收集表單資料
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                item: document.getElementById('item').value,
+                quantity: parseInt(document.getElementById('quantity').value, 10),
+                timestamp: new Date().toISOString()
+            };
+
+            // 按鈕進入載入狀態
+            submitBtn.disabled = true;
+            submitBtn.textContent = '訂單傳送中...';
+            responseMsg.classList.add('hidden');
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    responseMsg.className = 'mx-6 mb-6 p-4 rounded-lg text-sm text-center bg-emerald-100 text-emerald-800 border border-emerald-200';
+                    responseMsg.textContent = '🎉 訂單已成功送出！感謝您的支持，我們將盡快為您安排出貨。';
+                    responseMsg.classList.remove('hidden');
+                    document.getElementById('orderForm').reset();
+                } else {
+                    throw new Error('伺服器回應異常');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                responseMsg.className = 'mx-6 mb-6 p-4 rounded-lg text-sm text-center bg-red-100 text-red-800 border border-red-200';
+                responseMsg.textContent = '❌ 訂單傳送失敗，請檢查 n8n Webhook 網址或網路連線是否正確。';
+                responseMsg.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '確認送出訂單';
+            }
+        });
+    </script>
+</body>
+</html>
