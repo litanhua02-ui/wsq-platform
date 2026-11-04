@@ -70,7 +70,7 @@
                     <li>
                         <a href="https://www.youtube.com/watch?v=Kvs_mo-KSWY" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">
                             Docker Compose 基礎觀念與多容器管理教學 (YouTube)
-                        </i>
+                        </a>
                     </li>
                     <li>
                         <a href="https://www.youtube.com/watch?v=OAEhPxQCAno" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">
@@ -195,15 +195,15 @@
                 </div>
             </div>
 
-            <!-- Part 4: 實作作品上傳 (圖片) -->
+            <!-- Part 4: 實作作品上傳 (多張圖片) -->
             <div class="space-y-4">
-                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">四、 實作作品上傳（Docker Compose 執行截圖）</h2>
+                <h2 class="text-lg font-bold text-indigo-950 border-l-4 border-indigo-600 pl-3">四、 實作作品上傳（Docker Compose 執行截圖，可選多張）</h2>
                 <div class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
-                    <p class="text-sm font-bold text-slate-800">請上傳您在本機成功執行 <code class="bg-slate-200 px-1.5 py-0.5 rounded text-indigo-700">docker compose up -d</code> 並啟動商店服務的畫面截圖：</p>
-                    <input type="file" id="projectImage" accept="image/*" onchange="previewImage(event)" class="w-full border rounded-lg p-2.5 text-sm bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                    <div id="imagePreviewContainer" class="hidden mt-3">
-                        <p class="text-xs font-semibold text-slate-600 mb-1">圖片預覽：</p>
-                        <img id="imagePreview" src="" alt="作品預覽" class="max-h-64 rounded-xl border border-slate-300 shadow-sm">
+                    <p class="text-sm font-bold text-slate-800">請上傳您在本機成功執行 <code class="bg-slate-200 px-1.5 py-0.5 rounded text-indigo-700">docker compose up -d</code> 並啟動商店服務的畫面截圖（可多選）：</p>
+                    <input type="file" id="projectImages" accept="image/*" multiple onchange="previewImages(event)" class="w-full border rounded-lg p-2.5 text-sm bg-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                    <div id="imagePreviewContainer" class="hidden mt-3 space-y-2">
+                        <p class="text-xs font-semibold text-slate-600">已選取圖片預覽（將垂直排列）：</p>
+                        <div id="imagePreviewsList" class="flex flex-col gap-3"></div>
                     </div>
                 </div>
             </div>
@@ -305,12 +305,12 @@
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="resQuestion">（未填寫）</p>
                     </div>
 
-                    <!-- 實作截圖預覽 -->
+                    <!-- 多張實作截圖預覽 (垂直排列) -->
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
-                        <p class="font-bold text-slate-800">【實作作品截圖】Docker Compose 執行與服務啟動畫面</p>
+                        <p class="font-bold text-slate-800">【實作作品截圖（多張垂直排列）】</p>
                         <div id="resImageContainer" class="mt-2">
                             <p id="noImageText" class="text-slate-500 italic">（未上傳截圖）</p>
-                            <img id="resImagePreview" src="" alt="實作截圖" class="hidden max-h-80 rounded-xl border border-slate-300 shadow-sm">
+                            <div id="resImagePreviewsList" class="flex flex-col gap-4"></div>
                         </div>
                     </div>
                 </div>
@@ -335,7 +335,7 @@
             question: false
         };
 
-        let base64Image = "";
+        let base64Images = [];
 
         function markItemAI(key) {
             itemAiUsage[key] = true;
@@ -350,16 +350,28 @@
             document.getElementById(targetId).value = text;
         }
 
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    base64Image = e.target.result;
-                    document.getElementById('imagePreview').src = base64Image;
-                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
+        function previewImages(event) {
+            const files = event.target.files;
+            base64Images = [];
+            const container = document.getElementById('imagePreviewsList');
+            container.innerHTML = '';
+
+            if (files.length > 0) {
+                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                Array.from(files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        base64Images.push(e.target.result);
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = `作品預覽 ${index + 1}`;
+                        img.className = "max-h-80 rounded-xl border border-slate-300 shadow-sm w-full object-contain bg-white";
+                        container.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                document.getElementById('imagePreviewContainer').classList.add('hidden');
             }
         }
 
@@ -390,7 +402,7 @@
                 summary: document.getElementById('summary').value,
                 question: document.getElementById('question').value,
                 aiUsageDetail: itemAiUsage,
-                projectImage: base64Image
+                projectImages: base64Images
             };
 
             const GAS_URL = "https://script.google.com/macros/s/AKfycbwAAJDdY7S51baBguV8JgDoAwccWodJazZS6sM15pjDBHI_qlcas-52HGZCWhttBtb1/exec";
@@ -409,13 +421,19 @@
             document.getElementById('resSummary').innerText = formData.summary || '（未填寫）';
             document.getElementById('resQuestion').innerText = formData.question || '（未填寫）';
 
-            if (base64Image) {
-                document.getElementById('resImagePreview').src = base64Image;
-                document.getElementById('resImagePreview').classList.remove('hidden');
+            const resContainer = document.getElementById('resImagePreviewsList');
+            resContainer.innerHTML = '';
+            if (base64Images.length > 0) {
                 document.getElementById('noImageText').classList.add('hidden');
+                base64Images.forEach((b64, idx) => {
+                    const img = document.createElement('img');
+                    img.src = b64;
+                    img.alt = `實作截圖 ${idx + 1}`;
+                    img.className = "max-h-80 rounded-xl border border-slate-300 shadow-sm w-full object-contain bg-white";
+                    resContainer.appendChild(img);
+                });
             } else {
                 document.getElementById('noImageText').classList.remove('hidden');
-                document.getElementById('resImagePreview').classList.add('hidden');
             }
 
             // 逐題更新 AI 使用狀態標籤
@@ -443,7 +461,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             }).then(() => {
-                console.log('資料與圖片已成功發送至 Google 雲端');
+                console.log('多張圖片與資料已成功發送至 Google 雲端');
             }).catch(error => {
                 console.error('送出失敗:', error);
             });
