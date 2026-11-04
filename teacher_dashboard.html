@@ -320,7 +320,7 @@
             document.getElementById('repAnsSum').innerText = item.summary || '（未填寫）';
             document.getElementById('repAnsQue').innerText = item.question || '（未填寫）';
 
-            // 處理多張圖片截圖預覽 (支援逗號分隔的多個網址)
+            // 處理多張圖片截圖預覽 (自動將 Google Drive 網址轉換為可直連顯示的圖片格式)
             const imgListContainer = document.getElementById('repImgList');
             const noImg = document.getElementById('repNoImage');
             imgListContainer.innerHTML = '';
@@ -331,13 +331,23 @@
                     const cleanUrl = url.trim();
                     if (cleanUrl.startsWith("http")) {
                         noImg.classList.add('hidden');
+                        
+                        // 將 Google 雲端硬碟的 view 網址轉換為直接讀取預覽的格式
+                        let directUrl = cleanUrl;
+                        if (cleanUrl.includes("drive.google.com/file/d/")) {
+                            const fileIdMatch = cleanUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                            if (fileIdMatch && fileIdMatch[1]) {
+                                directUrl = `https://lh3.googleusercontent.com/d/${fileIdMatch[1]}`;
+                            }
+                        }
+
                         const a = document.createElement('a');
                         a.href = cleanUrl;
                         a.target = "_blank";
                         a.className = "block";
 
                         const img = document.createElement('img');
-                        img.src = cleanUrl;
+                        img.src = directUrl;
                         img.alt = `實作截圖 ${idx + 1}`;
                         img.className = "max-h-80 rounded-xl border border-slate-300 shadow-sm hover:opacity-95 transition w-full object-contain bg-white";
                         
