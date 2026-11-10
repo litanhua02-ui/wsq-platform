@@ -77,7 +77,7 @@
                     <tr>
                         <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">修課科目</td>
                         <td class="border border-slate-400 p-2.5 w-2/6">專題製作</td>
-                        <td class="border border-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">週次 / 主題</td>
+                        <td class="border border-slate-400 bg-slate-400 bg-slate-100 p-2.5 font-bold w-1/6">週次 / 主題</td>
                         <td class="border border-slate-400 p-2.5 w-2/6" id="repWeekTopic"></td>
                     </tr>
                     <tr>
@@ -126,7 +126,7 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Summary 總結】</p>
+                            <p class="font-bold text-slate-800" id="qTitleSum">【Summary 總結】</p>
                             <span id="repAiSum" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAnsSum">（未填寫）</p>
@@ -134,7 +134,7 @@
 
                     <div class="border border-slate-300 rounded-lg p-4 bg-slate-50 space-y-2">
                         <div class="flex justify-between items-start">
-                            <p class="font-bold text-slate-800">【Question 提問】</p>
+                            <p class="font-bold text-slate-800" id="qTitleQue">【Question 提問】</p>
                             <span id="repAiQue" class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0 ml-2">AI 協助：無</span>
                         </div>
                         <p class="text-slate-900 bg-white p-3 border rounded-lg whitespace-pre-wrap" id="repAnsQue">（未填寫）</p>
@@ -294,7 +294,7 @@
             });
         }
 
-        // 渲染正式學習歷程報告
+        // 渲染正式學習歷程報告 (動態對照 wsq 官方標準題目)
         function renderReport(item) {
             document.getElementById('welcomeState').classList.add('hidden');
             document.getElementById('formalReport').classList.remove('hidden');
@@ -303,21 +303,34 @@
             document.getElementById('repClassGroup').innerText = `${item.className || ''} / ${item.groupNo || '未分組'}`;
             document.getElementById('repSeatName').innerText = `${item.seatNo || ''} 號 / ${item.studentName || ''}`;
 
-            // 填寫 WSQ 內容
+            // 動態帶入 wsq 官方標準題目標題
+            const sq = item.standardQuestions || {};
+            document.getElementById('qTitle1').innerText = sq.watch1 ? `【Watch 題目 1】${sq.watch1}` : "【Watch 題目 1】";
+            document.getElementById('qTitle2').innerText = sq.watch2 ? `【Watch 題目 2】${sq.watch2}` : "【Watch 題目 2】";
+            document.getElementById('qTitle3').innerText = sq.watch3 ? `【Watch 題目 3】${sq.watch3}` : "【Watch 題目 3】";
+            
+            // 填寫學生物件作答
             document.getElementById('repAns1').innerText = item.watch1 || '（未填寫）';
             document.getElementById('repAns2').innerText = item.watch2 || '（未填寫）';
             document.getElementById('repAns3').innerText = item.watch3 || '（未填寫）';
             
-            if (item.watch4 && item.watch4.trim() !== "") {
+            // 處理 Watch 4 (若該週有第4題則顯示，沒有則隱藏)
+            if (sq.watch4 && sq.watch4.trim() !== "") {
                 document.getElementById('boxWatch4').classList.remove('hidden');
+                document.getElementById('qTitle4').innerText = `【Watch 題目 4】${sq.watch4}`;
+                document.getElementById('repAns4').innerText = item.watch4 || '（未填寫）';
+            } else if (item.watch4 && item.watch4.trim() !== "") {
+                document.getElementById('boxWatch4').classList.remove('hidden');
+                document.getElementById('qTitle4').innerText = "【Watch 題目 4】";
                 document.getElementById('repAns4').innerText = item.watch4;
             } else {
-                if (item.week.includes("第 2") || item.week.includes("第 3")) {
-                    document.getElementById('boxWatch4').classList.add('hidden');
-                }
+                document.getElementById('boxWatch4').classList.add('hidden');
             }
 
+            document.getElementById('qTitleSum').innerText = sq.summary ? `【Summary 總結】${sq.summary}` : "【Summary 總結】";
             document.getElementById('repAnsSum').innerText = item.summary || '（未填寫）';
+
+            document.getElementById('qTitleQue').innerText = sq.question ? `【Question 提問】${sq.question}` : "【Question 提問】";
             document.getElementById('repAnsQue').innerText = item.question || '（未填寫）';
 
             // 處理多張圖片截圖預覽 (自動將 Google Drive 網址轉換為可直連顯示的圖片格式)
@@ -332,7 +345,6 @@
                     if (cleanUrl.startsWith("http")) {
                         noImg.classList.add('hidden');
                         
-                        // 將 Google 雲端硬碟的 view 網址轉換為直接讀取預覽的格式
                         let directUrl = cleanUrl;
                         if (cleanUrl.includes("drive.google.com/file/d/")) {
                             const fileIdMatch = cleanUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
